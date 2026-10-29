@@ -60,42 +60,67 @@ table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:6px 8px;b
 .grpa{color:var(--acc);font-weight:600}
 [hidden]{display:none!important}
 i{font-style:italic}
+.cfg{display:flex;flex-direction:column;gap:14px}
+.fld{display:flex;flex-direction:column;gap:6px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg .btn{padding:6px 12px}
+details summary{cursor:pointer;color:var(--mut);padding:4px 0}
+details.mk summary{color:var(--fg)}
+.chk{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 10px;margin-top:8px;font-size:14px}
+.chk label{display:flex;gap:6px;align-items:center}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;flex:none}
+.opts.g2{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.opt.sel{border-color:var(--acc);background:var(--card);box-shadow:inset 0 0 0 1px var(--acc)}
+.tbar{height:10px;border-radius:99px;background:var(--line);position:relative;margin:14px 0 4px}
+.tbar i{position:absolute;inset:0 auto 0 0;width:100%;border-radius:99px;background:var(--acc);transition:width .1s linear}
+.tbar.u i{background:var(--bad)}
+.tbar span{position:absolute;right:2px;top:-17px;font-size:12px;color:var(--mut)}
+.ruler{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;font-size:12px;text-shadow:0 1px 2px #000;pointer-events:none}
+.ruler b{display:block;height:6px;border:2px solid #fff;border-top:none;box-shadow:0 1px 2px #000}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cmp figure{margin:0}.cmp img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
+.cmp figcaption{font-size:12px;color:var(--mut);margin-top:3px}
+.big{font:700 26px Fraunces,serif}
+.pb{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.pb i{display:block;height:100%}
+.lpl{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.lp{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:6px 10px;background:var(--bg)}
+.lp.off{opacity:.5}
+tr.me td{background:var(--okbg)}
+.podio{display:flex;justify-content:center;align-items:flex-end;gap:10px;min-height:190px}
+.pcol{display:flex;flex-direction:column;align-items:center;width:30%;max-width:150px;text-align:center}
+.pn{font-weight:600;word-break:break-word}.ps{font:700 18px Fraunces,serif;color:var(--acc)}
+.pbar{width:100%;height:0;background:var(--acc);color:var(--accfg);border-radius:10px 10px 0 0;display:grid;place-items:center;font:700 22px Fraunces,serif;animation:rise .8s ease-out forwards}
+@keyframes rise{to{height:var(--h)}}
+@media(prefers-reduced-motion:reduce){.pbar{animation-duration:.01s}}
+.tab#mute{margin-left:4px}
+
 </style>
 
 <div class="wrap">
   <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
-    <div><h1>Microscopio de Parasitología</h1><p class="sub">Tus fotos reales, para practicar el parcial: adiviná qué ves, o explorá un preparado y armá el informe.</p></div>
+    <div><h1>Microscopio de Parasitología</h1><p class="sub">Tus fotos reales para practicar el parcial: practicá solo, competí en vivo o explorá un preparado.</p></div>
     <div class="tabs" role="tablist">
-      <button class="tab" role="tab" id="t1" aria-selected="true">Adiviná la foto</button>
+      <button class="tab" role="tab" id="t1" aria-selected="true">Práctica</button>
+      <button class="tab" role="tab" id="t3" aria-selected="false">En vivo</button>
       <button class="tab" role="tab" id="t2" aria-selected="false">Preparado</button>
+      <button class="tab" role="tab" id="t4" aria-selected="false">Mi progreso</button>
+      <button class="tab" id="mute" aria-pressed="false">🔊 Sonido</button>
     </div>
   </div>
 
   <section id="m1">
-    <div class="card" style="margin-bottom:16px">
-      <div class="row"><b>Desafío con amigos</b><span class="hint">sin cuentas: mismo código = mismas fotos</span></div>
-      <div class="row"><input class="txt" id="chn" maxlength="14" placeholder="Tu nombre" aria-label="Tu nombre" style="width:130px"><input class="txt" id="chc" maxlength="6" placeholder="CÓDIGO" aria-label="Código del desafío" style="width:110px;text-transform:uppercase"><button class="btn pri" id="chgo">Jugar desafío</button><button class="btn" id="chnew">Crear código nuevo</button><button class="btn" id="chfree">Práctica libre</button></div>
-      <div class="hint" id="chl"></div>
+    <div id="pset" class="card">
+      <h2>Práctica</h2>
+      <div id="pcfg" class="cfg"></div>
+      <div class="row"><button class="btn pri" id="pgo">Empezar</button><span class="hint" id="pmsg" role="status"></span></div>
+      <div class="hint">En práctica podés usar la pista (vale la mitad de puntos) y jugar sin tiempo.</div>
     </div>
-    <div class="grid">
-      <div class="scopebox">
-        <div class="scope" id="s1"><div class="stage" id="st1"><img id="im1" alt="Campo microscópico"></div></div>
-        <div class="ctrl"><button class="btn" id="z1o">−</button><span class="badge" id="zl1">1×</span><button class="btn" id="z1i">+</button><button class="btn" id="z1r">Reiniciar</button></div>
-        <div class="hint">Rueda / pellizco para zoom, arrastrá para mover, doble toque para acercar.</div>
-      </div>
-      <div class="card">
-        <div class="bar"><div class="stat"><span class="badge">Ronda</span><br><b id="rn">1/10</b></div><div class="stat"><span class="badge">Aciertos</span><br><b id="sc">0</b></div><div class="stat"><span class="badge">Racha</span><br><b id="sk">0</b></div><div class="stat"><span class="badge">Mejor</span><br><b id="bs">–</b></div></div>
-        <div><b>¿Qué estás viendo?</b> <button class="btn" id="hintb" style="float:right;padding:3px 10px">Pista</button></div>
-        <div class="hint" id="hint" hidden></div>
-        <div class="opts" id="opts"></div>
-        <div id="fb" hidden></div>
-        <button class="btn pri" id="nx" hidden>Siguiente</button>
-      </div>
+    <div id="p1wrap" hidden>
+      <div class="row" style="margin-bottom:10px"><button class="btn" id="pexit">← Salir de la práctica</button></div>
+      <div id="p1host"></div>
     </div>
-    <div class="card" id="live" hidden><b>Ranking en vivo</b> <span class="hint" id="livec"></span><div id="liveb"></div></div>
     <div class="card" id="end1" hidden style="margin-top:16px"></div>
   </section>
-
   <section id="m2" hidden>
     <div id="m2start" class="card">
       <h2>Preparado de materia fecal</h2>
@@ -121,6 +146,52 @@ i{font-style:italic}
     </div>
     <div class="card" id="m2res" hidden style="margin-top:16px"></div>
   </section>
+
+  <section id="m3" hidden>
+    <div id="lhome" class="card">
+      <h2>Desafío en vivo</h2>
+      <p style="margin:0">Todos ven la misma foto al mismo tiempo, con cuenta regresiva. Gana quien acierta más y más rápido. Máximo 10 jugadores por sala.</p>
+      <input class="txt" id="ln" maxlength="14" placeholder="Tu nombre" aria-label="Tu nombre" style="max-width:240px">
+      <div class="row"><input class="txt" id="lcode_in" maxlength="6" placeholder="CÓDIGO" aria-label="Código de sala" style="width:120px;text-transform:uppercase"><button class="btn pri" id="ljoin">Unirme</button><button class="btn" id="lback" hidden></button></div>
+      <details class="mk"><summary><b>Crear una sala nueva</b></summary>
+        <div class="cfg" style="margin-top:10px">
+          <div class="fld"><span class="badge">Anfitrión</span><select id="lhp" class="txt" style="max-width:260px"><option value="1">Juego yo también</option><option value="0">Solo controlo la partida</option></select></div>
+          <div id="lcfg"></div>
+          <div class="row"><button class="btn pri" id="lcreate">Crear sala</button></div>
+        </div>
+      </details>
+      <div class="hint" id="lmsg" role="status"></div>
+    </div>
+    <div id="lroom" hidden>
+      <div class="card" id="lhoff" hidden style="border-color:var(--bad)">El anfitrión se desconectó. Esperando que vuelva…</div>
+      <div id="lob" class="card" hidden>
+        <div class="row" style="justify-content:space-between;align-items:flex-start"><div><span class="badge">Sala</span><br><span class="code" id="lcode"></span></div><div class="row"><button class="btn" id="lleave">Salir</button><button class="btn" id="lclose">Cerrar sala</button></div></div>
+        <div class="row"><input class="txt" id="llink" readonly aria-label="Link de la sala" style="flex:1;min-width:200px"><button class="btn" id="lcopy">Copiar link</button></div>
+        <div class="hint" id="linfo"></div>
+        <div><b>Jugadores</b><div id="lpl" class="lpl"></div></div>
+        <div id="lhost"><button class="btn pri" id="lstart">Empezar partida</button><div class="hint">Al empezar, la sala se cierra y no entra nadie más.</div></div>
+        <div id="lwait" class="hint">Esperando que el anfitrión empiece la partida…</div>
+      </div>
+      <div id="lplay" hidden>
+        <div class="row" style="margin-bottom:10px"><button class="btn" id="lleave2">Salir</button><button class="btn" id="lclose2">Cerrar sala (anfitrión)</button></div>
+        <div id="p3host"></div>
+        <div class="card" style="margin-top:16px"><b>Ranking</b><div id="lrank"></div></div>
+      </div>
+      <div id="lend" class="card" hidden>
+        <h2>¡Fin de la partida!</h2>
+        <div class="podio" id="lpod"></div>
+        <div id="lall"></div>
+        <div><b>Tus errores</b><div id="lmine"></div></div>
+        <div><b>Lo que más se confundió en el grupo</b><div id="lgrp"></div></div>
+        <div class="row"><button class="btn pri" id="lrematch">Revancha (misma sala)</button><span class="hint" id="lendwait">Esperando al anfitrión para la revancha…</span><button class="btn" id="lleave3">Salir</button><button class="btn" id="lclose3">Cerrar sala (anfitrión)</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="m4" hidden>
+    <div class="card" id="prog"></div>
+  </section>
+
 
 </div>
 
@@ -161,7 +232,7 @@ function Viewer(scope,stage,label,max=8){
   const v={z:1,x:0,y:0};
   const pts=new Map();let last=null,d0=0,z0=1;
   const lim=()=>{const s=scope.clientWidth,m=(v.z-1)*s/2;v.x=Math.max(-m,Math.min(m,v.x));v.y=Math.max(-m,Math.min(m,v.y))};
-  const draw=()=>{lim();stage.style.transform=`translate(${v.x}px,${v.y}px) scale(${v.z})`;label.textContent=(+v.z.toFixed(1))+"×"};
+  const draw=()=>{lim();stage.style.transform=`translate(${v.x}px,${v.y}px) scale(${v.z})`;label.textContent=(+v.z.toFixed(1))+"×";if(v.cb)v.cb(v)};
   v.set=(z,cx,cy)=>{const nz=Math.max(1,Math.min(max,z)),r=nz/v.z,s=scope.clientWidth/2;
     cx=(cx===undefined?s:cx)-s;cy=(cy===undefined?s:cy)-s;
     v.x=cx-(cx-v.x)*r;v.y=cy-(cy-v.y)*r;v.z=nz;draw()};
@@ -176,84 +247,6 @@ function Viewer(scope,stage,label,max=8){
   scope.addEventListener("dblclick",e=>{const b=scope.getBoundingClientRect();v.set(v.z>=3?1:v.z*2.5,e.clientX-b.left,e.clientY-b.top)});
   window.addEventListener("resize",draw);
   return v;
-}
-
-/* ---------- Modo 1 ---------- */
-const V1=Viewer($("s1"),$("st1"),$("zl1"));
-$("z1i").onclick=()=>V1.set(V1.z*1.5);$("z1o").onclick=()=>V1.set(V1.z/1.5);$("z1r").onclick=()=>V1.reset();
-let Q=[],qi=0,score=0,streak=0,best=0,miss=[],cur=null,answered=false,hintOn=false;
-function qlist(){ // fotos variadas, 10 preguntas
-  const all=[];IDS.forEach(id=>C[id].ph.forEach(p=>all.push({id,p})));
-  return shuf(all).slice(0,10);
-}
-function opts(id){
-  const g=C[id].g,same=IDS.filter(i=>i!==id&&C[i].g===g),oth=IDS.filter(i=>i!==id&&C[i].g!==g);
-  const d=shuf(same).slice(0,3);
-  if(d.length<3)shuf(oth).slice(0,3-d.length).forEach(x=>d.push(x));
-  if(id!=="nopar"&&R()<.35&&!d.includes("nopar"))d[0]="nopar";
-  return shuf([id,...d]);
-}
-function showQ(){
-  cur=Q[qi];answered=false;hintOn=false;
-  $("im1").src=src(cur.p);V1.reset();
-  $("im1").style.transform=`rotate(${[0,90,180,270][Math.floor(Math.random()*4)]}deg)`;
-  $("rn").textContent=(qi+1)+"/"+Q.length;$("sc").textContent=score;$("sk").textContent=streak;
-  $("hint").hidden=true;$("hintb").disabled=false;$("fb").hidden=true;$("nx").hidden=true;
-  const o=$("opts");o.innerHTML="";
-  opts(cur.id).forEach(id=>{const b=document.createElement("button");b.className="opt";b.dataset.id=id;b.innerHTML=C[id].n;b.onclick=()=>answer(id);o.appendChild(b)});
-}
-$("hintb").onclick=()=>{const c=C[cur.id];$("hint").hidden=false;$("hint").innerHTML="Pista: grupo "+(c.g==="p"?"protozoo":c.g==="h"?"helminto":"resto no parasitario")+" · tamaño aprox. "+c.s;$("hintb").disabled=true;hintOn=true};
-function answer(id){
-  if(answered)return;answered=true;
-  const ok=id===cur.id,c=C[cur.id];
-  if(ok){score+=hintOn?.5:1;streak++}else{streak=0;miss.push(cur.id)}
-  document.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.dataset.id===cur.id)b.classList.add("ok");else if(b.dataset.id===id)b.classList.add("bad")});
-  $("sc").textContent=score;$("sk").textContent=streak;livePush(qi+1,qi+1>=Q.length);
-  const f=$("fb");f.hidden=false;f.className="fb "+(ok?"ok":"bad");
-  f.innerHTML=`<b>${ok?"¡Correcto!":"Era:"} ${c.n}</b><dl class="kv"><dt>Tamaño</dt><dd>${c.s}</dd><dt>Clave</dt><dd>${c.k}</dd><dt>No confundir</dt><dd>${c.d}</dd></dl>`;
-  $("nx").hidden=false;$("nx").textContent=qi+1<Q.length?"Siguiente":"Ver resultado";
-}
-$("nx").onclick=()=>{qi++;if(qi<Q.length)showQ();else end1()};
-function end1(){
-  const b=+store("pbest")||0;if(score>b){store("pbest",String(score))}
-  $("bs").textContent=Math.max(score,b);
-  const e=$("end1");e.hidden=false;
-  const u=[...new Set(miss)];
-  e.innerHTML=`<h2>Resultado: ${score} / ${Q.length}</h2>`+(u.length?`<div>A repasar:</div><table>${u.map(i=>`<tr><td>${C[i].n}</td><td>${C[i].s}</td><td>${C[i].k}</td></tr>`).join("")}</table>`:"<div>¡Sin errores!</div>")+`${chal?`<div class="hint">Copiá y pegá tu resultado en el grupo:</div><div class="row"><input class="txt" id="rtxt" readonly style="flex:1"><button class="btn" id="rcp">Copiar</button></div>`:""}<div><button class="btn pri" id="again">Jugar otra ronda</button></div>`;
-  if(chal){const sec=Math.round((Date.now()-t1)/1000),t=`Desafío ${chal} · ${($("chn").value.trim()||"Yo").slice(0,14)}: ${score}/${Q.length} aciertos en ${Math.floor(sec/60)}:${String(sec%60).padStart(2,"0")}`;$("rtxt").value=t;$("rcp").onclick=()=>{try{navigator.clipboard.writeText(t).then(()=>$("rcp").textContent="¡Copiado!",()=>$("rtxt").select())}catch(e){$("rtxt").select()}}}
-  $("again").onclick=()=>start1();e.scrollIntoView({behavior:"smooth",block:"nearest"});
-}
-let chal="",t1=0;
-function hashS(t){let h=2166136261;for(const c of t){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
-function start1(code){
-  liveStop();chal=typeof code==="string"?code:"";
-  R=chal?mulberry(hashS(chal)):Math.random;t1=Date.now();
-  $("chl").textContent=chal?"Desafío "+chal+" — todos los que usen este código ven las mismas 10 fotos":"";
-  Q=qlist();qi=0;score=0;streak=0;miss=[];$("end1").hidden=true;const b=+store("pbest")||0;$("bs").textContent=b||"–";showQ();liveStart()}
-
-
-/* ---------- Ranking en vivo (Firebase Realtime Database) ---------- */
-const DBURL="https://microscopio-parasitologia-default-rtdb.firebaseio.com";
-let DB=null,myRef=null,roomRef=null;const pid=store("pid")||(Math.random().toString(36).slice(2,10));store("pid",pid);
-function liveStop(){try{roomRef&&roomRef.off()}catch(e){}roomRef=myRef=null;$("live").hidden=true}
-function liveStart(){
-  liveStop();if(!chal||!window.firebase)return;
-  try{
-    if(!DB){firebase.initializeApp({databaseURL:DBURL});DB=firebase.database()}
-    const room=chal.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,8);if(!room)return;
-    roomRef=DB.ref("rooms/"+room+"/players");myRef=roomRef.child(pid);
-    myRef.onDisconnect&&0;
-    $("live").hidden=false;$("livec").textContent="sala "+room;
-    roomRef.on("value",s=>{
-      const a=Object.values(s.val()||{}).sort((x,y)=>y.s-x.s||x.t-y.t);
-      $("liveb").innerHTML="<table>"+a.map((p,i)=>`<tr><td>${i+1}</td><td>${String(p.n).replace(/</g,"&lt;")}</td><td>${p.q}/10${p.d?" ✓":""}</td><td><b>${p.s}</b></td></tr>`).join("")+"</table>"
-    },()=>{$("livec").textContent="(sin conexión)"});
-    livePush(0,false);
-  }catch(e){$("livec").textContent="(sin conexión)"}
-}
-function livePush(q,d){
-  if(!myRef)return;
-  myRef.set({n:($("chn").value.trim()||"Jugador").slice(0,14),s:score,q:q,d:d?1:0,t:Math.round((Date.now()-t1)/1000)}).catch(()=>{$("livec").textContent="(sin permiso: revisá reglas)"})
 }
 
 /* ---------- Modo 2: preparado ---------- */
@@ -327,13 +320,434 @@ $("fin").onclick=()=>{
 };
 
 /* ---------- pestañas ---------- */
-function tab(n){$("m1").hidden=n!==1;$("m2").hidden=n!==2;[1,2].forEach(i=>$("t"+i).setAttribute("aria-selected",n===i))}
-$("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);
+function tab(n){const map={1:"m1",2:"m2",3:"m3",4:"m4"};Object.values(map).forEach(id=>$(id).hidden=id!==map[n]);[1,2,3,4].forEach(i=>$("t"+i).setAttribute("aria-selected",n===i));if(n===4)drawProg()}
+$("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);$("t3").onclick=()=>tab(3);$("t4").onclick=()=>tab(4);
+$("mute").onclick=()=>setMute(!muted);
 
-$("chgo").onclick=()=>{const c=$("chc").value.trim().toUpperCase();if(c)start1(c)};
-$("chnew").onclick=()=>{const a="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let c="";for(let i=0;i<5;i++)c+=a[Math.floor(Math.random()*a.length)];$("chc").value=c;start1(c)};
-$("chfree").onclick=()=>start1();
-start1();
+/* ===== datos extra, sonido, utilidades ===== */
+const STAGE={giardia:"Trofozoíto",entamoeba:"Trofozoíto",ecoli:"Quiste",endolimax:"Quiste",iodamoeba:"Quiste",blasto:"Forma vacuolar",balan:"Quiste",chilo:"Quiste",ascaris:"Huevo",trichuris:"Huevo",uncinaria:"Huevo",strongy:"Larva",entero:"Huevo",taenia:"Huevo",hnana:"Huevo",hdim:"Huevo",dibo:"Huevo",nopar:"Resto"};
+const STAGES=["Quiste","Trofozoíto","Huevo","Larva","Forma vacuolar","Resto"];
+const CONF={ecoli:["entamoeba","blasto","endolimax","iodamoeba"],entamoeba:["ecoli","blasto","giardia","iodamoeba"],blasto:["ecoli","endolimax","iodamoeba","chilo"],endolimax:["iodamoeba","chilo","ecoli","blasto"],iodamoeba:["endolimax","ecoli","blasto","chilo"],giardia:["chilo","entamoeba","balan","endolimax"],chilo:["giardia","endolimax","iodamoeba","blasto"],balan:["giardia","ecoli","entamoeba","blasto"],hnana:["hdim","taenia","entero","trichuris"],hdim:["hnana","taenia","dibo","ascaris"],taenia:["hnana","hdim","ascaris","dibo"],dibo:["hdim","ascaris","uncinaria","taenia"],ascaris:["taenia","hdim","dibo","trichuris"],uncinaria:["entero","ascaris","hnana","strongy"],entero:["uncinaria","hnana","strongy","taenia"],trichuris:["ascaris","dibo","entero","hdim"],strongy:["uncinaria","entero","nopar","trichuris"],nopar:["blasto","strongy","entero","taenia"]};
+const PN=id=>C[id].n.replace(/<[^>]+>/g,"");
+const PHN=[];IDS.forEach(id=>C[id].ph.forEach(p=>PHN.push({id,p})));
+IDS.forEach((id,i)=>{C[id].c=`hsl(${Math.round(4+i*(46/(IDS.length-1)))} ${70+(i%3)*8}% ${40+(i%2)*8}%)`});
+const hs=t=>{let h=2166136261;for(const c of String(t)){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0};
+const shufR=(a,r)=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function mkOpts(id,level,r){
+  if(level==="experto")return IDS.slice().sort((a,b)=>PN(a).localeCompare(PN(b),"es"));
+  const d=level==="facil"?shufR(IDS.filter(i=>i!==id&&C[i].g!==C[id].g),r).slice(0,3):shufR(CONF[id],r).slice(0,3);
+  return shufR([id,...d],r);
+}
+function pts(ok,el,secs,streak,hint){if(!ok)return 0;const w=secs?secs*1000:30000;return(hint?50:100)+Math.round(50*Math.max(0,1-el/w))+Math.min(streak,5)*10}
+function stats(){try{return JSON.parse(store("stats2")||"{}")}catch(e){return{}}}
+function bump(id,ok){const s=stats();s[id]=s[id]||{n:0,ok:0};s[id].n++;if(ok)s[id].ok++;store("stats2",JSON.stringify(s))}
+
+/* sonido (beeps del navegador) */
+const AC=window.AudioContext||window.webkitAudioContext;let ac=null,muted=store("mute")==="1";
+function tone(f,d,type,v,at){if(muted||!AC)return;try{ac=ac||new AC();if(ac.state==="suspended")ac.resume();const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime+(at||0);o.type=type||"sine";o.frequency.value=f;g.gain.setValueAtTime(v||.15,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(ac.destination);o.start(t);o.stop(t+d)}catch(e){}}
+const SND={ok(){tone(660,.12);tone(990,.22,"sine",.15,.1)},bad(){tone(180,.35,"sawtooth",.12)},time(){tone(300,.15,"square",.09);tone(200,.35,"square",.09,.17)},tick(){tone(1000,.05,"square",.05)},end(){[523,659,784,1047].forEach((f,i)=>tone(f,.22,"triangle",.15,i*.15))},go(){tone(880,.1);tone(1175,.2,"sine",.15,.12)}};
+function setMute(m){muted=m;store("mute",m?"1":"0");$("mute").textContent=m?"🔇 Sonido":"🔊 Sonido";$("mute").setAttribute("aria-pressed",m)}
+
+/* feedback compartido */
+function fbHTML(c,chosen,res){
+  const cc=C[c];
+  let h=`<div class="fb ${res.ok?"ok":"bad"}" style="border-color:${cc.c}"><b><span class="dot" style="background:${cc.c}"></span>${res.timeout?"Se acabó el tiempo. Era:":res.ok?"¡Correcto!":"Era:"} ${cc.n}</b>`;
+  if(res.pts!=null)h+=`<div class="hint">${res.pts>0?"+"+res.pts+" puntos":"0 puntos"}${res.eTxt||""}</div>`;
+  h+=`<dl class="kv"><dt>Forma</dt><dd>${STAGE[c]}</dd><dt>Tamaño</dt><dd>${cc.s}</dd><dt>Clave</dt><dd>${cc.k}</dd><dt>No confundir</dt><dd>${cc.d}</dd></dl>`;
+  if(!res.ok&&chosen&&chosen!==c&&C[chosen])h+=`<div class="cmp"><figure><img src="${src(C[chosen].ph[0])}" alt=""><figcaption>Elegiste: ${C[chosen].n}</figcaption></figure><figure><img src="${src(res.photo)}" alt=""><figcaption>Correcto: ${cc.n}</figcaption></figure></div>`;
+  return h+"</div>";
+}
+
+/* ===== panel de juego (foto + opciones), reutilizable ===== */
+const FOV=600; // µm aproximados que abarca el campo a 1× (regla orientativa)
+function Panel(host,p){
+  host.innerHTML=`<div class="grid">
+  <div class="scopebox">
+    <div class="scope" id="${p}s"><div class="stage" id="${p}st"><img id="${p}im" alt="Campo microscópico"></div><div class="ruler" id="${p}ru" hidden><b></b><span></span></div></div>
+    <div class="ctrl"><button class="btn" id="${p}zo" aria-label="Alejar">−</button><span class="badge" id="${p}zl">1×</span><button class="btn" id="${p}zi" aria-label="Acercar">+</button><button class="btn" id="${p}zr">Reiniciar</button><button class="btn" id="${p}rb" aria-pressed="false">Regla</button></div>
+    <div class="hint">Rueda / pellizco para zoom, arrastrá para mover. La regla es solo orientativa.</div>
+  </div>
+  <div class="card">
+    <div class="tbar" id="${p}tb" hidden><i id="${p}tf"></i><span id="${p}tl"></span></div>
+    <div class="bar" id="${p}hud"></div>
+    <div class="row" style="justify-content:space-between"><b id="${p}qt">¿Qué estás viendo?</b><button class="btn" id="${p}hb" style="padding:3px 10px" hidden>Pista</button></div>
+    <div class="hint" id="${p}hint" hidden></div>
+    <div id="${p}o"></div>
+    <div id="${p}es" hidden><b>¿En qué forma está?</b><div class="opts g2" id="${p}eo" style="margin-top:6px"></div></div>
+    <div id="${p}fb" hidden></div>
+    <button class="btn pri" id="${p}nx" hidden>Siguiente</button>
+  </div></div>`;
+  const g=id=>document.getElementById(p+id),P={};
+  const V=Viewer(g("s"),g("st"),g("zl"),8);
+  const ru=g("ru");
+  function upd(){if(ru.hidden)return;const W=g("s").clientWidth,k=W/FOV*V.z,um=[5,10,20,50,100,200,500].find(u=>u*k>=70)||500;ru.querySelector("b").style.width=(um*k)+"px";ru.querySelector("span").textContent="≈ "+um+" µm"}
+  V.cb=upd;
+  g("zi").onclick=()=>V.set(V.z*1.5);g("zo").onclick=()=>V.set(V.z/1.5);g("zr").onclick=()=>V.reset();
+  g("rb").onclick=()=>{ru.hidden=!ru.hidden;g("rb").setAttribute("aria-pressed",!ru.hidden);g("rb").classList.toggle("pri",!ru.hidden);upd()};
+  P.onAnswer=P.onEstadio=P.onHint=P.onNext=()=>{};
+  g("hb").onclick=()=>P.onHint();g("nx").onclick=()=>P.onNext();
+  P.show=q=>{
+    g("im").src=src(q.photo);g("im").style.transform=`rotate(${q.rot||0}deg)`;V.reset();
+    g("fb").hidden=true;g("es").hidden=true;g("nx").hidden=true;g("hint").hidden=true;g("hb").hidden=!q.hint;g("hb").disabled=false;
+    const o=g("o");o.innerHTML="";o.className=q.mode==="list"?"pick":"opts";
+    q.options.forEach(id=>{const b=document.createElement("button");b.className="opt";b.dataset.id=id;b.innerHTML=C[id].n;b.onclick=()=>P.onAnswer(id);o.appendChild(b)});
+    g("qt").textContent=q.options.length?(q.mode==="list"?"¿Qué es? Elegí de la lista":"¿Qué estás viendo?"):"Pregunta en curso (modo anfitrión)";
+  };
+  P.lock=()=>g("o").querySelectorAll(".opt").forEach(b=>b.disabled=true);
+  P.mark=(correct,chosen)=>g("o").querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.dataset.id===correct)b.classList.add("ok");else if(b.dataset.id===chosen)b.classList.add("bad")});
+  P.pick=id=>g("o").querySelectorAll(".opt").forEach(b=>b.classList.toggle("sel",b.dataset.id===id));
+  P.askEstadio=list=>{const e=g("eo");e.innerHTML="";g("es").hidden=false;list.forEach(s=>{const b=document.createElement("button");b.className="opt";b.dataset.id=s;b.textContent=s;b.onclick=()=>P.onEstadio(s);e.appendChild(b)})};
+  P.lockEst=()=>g("eo").querySelectorAll(".opt").forEach(b=>b.disabled=true);
+  P.markEst=(correct,chosen)=>g("eo").querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.dataset.id===correct)b.classList.add("ok");else if(b.dataset.id===chosen)b.classList.add("bad")});
+  P.pickEst=s=>g("eo").querySelectorAll(".opt").forEach(b=>b.classList.toggle("sel",b.dataset.id===s));
+  P.hintText=t=>{g("hint").hidden=false;g("hint").innerHTML=t;g("hb").disabled=true};
+  P.fb=(h)=>{g("fb").hidden=!h;g("fb").innerHTML=h||""};
+  P.next=(txt,on)=>{g("nx").hidden=!txt;g("nx").textContent=txt||"";if(on)P.onNext=on};
+  P.hud=a=>g("hud").innerHTML=a.map(([l,v])=>`<div class="stat"><span class="badge">${l}</span><br><b>${v}</b></div>`).join("");
+  P.timer=(f,txt,urgent)=>{g("tb").hidden=f==null;if(f==null)return;g("tf").style.width=Math.max(0,Math.min(1,f))*100+"%";g("tl").textContent=txt;g("tb").classList.toggle("u",!!urgent)};
+  return P;
+}
+
+/* selector de configuración (nivel, preguntas, tiempo, temario) */
+function mkCfg(el,p,withNoTime){
+  const st={level:"parcial",n:10,secs:withNoTime?0:30,sel:new Set(IDS)};
+  const seg=(k,items)=>`<div class="seg" data-k="${k}">${items.map(([v,l])=>`<button class="btn${String(st[k])===String(v)?" pri":""}" data-v="${v}">${l}</button>`).join("")}</div>`;
+  const LH={facil:"Opciones de grupos distintos (protozoo / helminto / resto).",parcial:"Opciones parecidas entre sí, como en el parcial; además te pregunta la forma (quiste, huevo…).",experto:"Sin opciones armadas: elegís de la lista completa, y también la forma."};
+  const GR=[["p","Protozoos"],["h","Helmintos"],["n","Restos"]];
+  function draw(){
+    el.innerHTML=`<div class="fld"><span class="badge">Nivel</span>${seg("level",[["facil","Fácil"],["parcial","Parcial"],["experto","Experto"]])}<div class="hint">${LH[st.level]}</div></div>
+    <div class="fld"><span class="badge">Preguntas</span>${seg("n",[[5,"5"],[10,"10"],[20,"20"],[0,"Todas"]])}</div>
+    <div class="fld"><span class="badge">Tiempo por pregunta</span>${seg("secs",[...(withNoTime?[[0,"Sin tiempo"]]:[]),[10,"10 s"],[15,"15 s"],[20,"20 s"],[30,"30 s"],[45,"45 s"],[60,"60 s"]])}</div>
+    <div class="fld"><span class="badge">Temario (${st.sel.size} de ${IDS.length})</span><div class="seg" data-k="grp">${GR.map(([g,l])=>{const ids=IDS.filter(i=>C[i].g===g),all=ids.every(i=>st.sel.has(i));return`<button class="btn${all?" pri":""}" data-v="${g}">${l}</button>`}).join("")}</div>
+    <details${st.open?" open":""}><summary>Elegir especies una por una</summary><div class="chk">${IDS.map(i=>`<label><input type="checkbox" data-id="${i}"${st.sel.has(i)?" checked":""}><span class="dot" style="background:${C[i].c}"></span>${C[i].n}</label>`).join("")}</div></details></div>`;
+    el.querySelector("details").ontoggle=e=>{st.open=e.target.open};
+    el.querySelectorAll(".seg .btn").forEach(b=>b.onclick=()=>{const k=b.parentNode.dataset.k,v=b.dataset.v;
+      if(k==="grp"){const ids=IDS.filter(i=>C[i].g===v);if(ids.every(i=>st.sel.has(i)))ids.forEach(i=>st.sel.delete(i));else ids.forEach(i=>st.sel.add(i))}
+      else st[k]=k==="level"?v:+v;draw()});
+    el.querySelectorAll("input[data-id]").forEach(c=>c.onchange=()=>{c.checked?st.sel.add(c.dataset.id):st.sel.delete(c.dataset.id);const d=el.querySelector("details");st.open=true;draw()});
+  }
+  draw();
+  return{get:()=>({level:st.level,n:st.n,secs:st.secs,ids:IDS.filter(i=>st.sel.has(i))}),set:ids=>{st.sel=new Set(ids);draw()}};
+}
+const poolOf=ids=>PHN.map((x,i)=>({...x,i})).filter(x=>ids.includes(x.id));
+
+/* ===== Práctica ===== */
+const P1=Panel($("p1host"),"a");
+const CFG1=mkCfg($("pcfg"),"pc",true);
+let PR=null;
+function startPractice(){
+  const c=CFG1.get();if(!c.ids.length){$("pmsg").textContent="Elegí al menos una especie en el temario.";return}
+  $("pmsg").textContent="";
+  const pool=shufR(poolOf(c.ids),Math.random),n=c.n?Math.min(c.n,pool.length):pool.length;
+  PR={c,Q:pool.slice(0,n),qi:0,score:0,streak:0,miss:[],ok:0};
+  $("pset").hidden=true;$("end1").hidden=true;$("p1wrap").hidden=false;SND.go();pQ();
+}
+function pTimerStop(){clearInterval(PR&&PR.tm)}
+function pQ(){
+  const s=PR,q=s.Q[s.qi],c=s.c;s.cur=q;s.t0=Date.now();s.done=false;s.sp=null;s.hint=false;s.estOk=null;s.lastTick=99;
+  P1.show({photo:q.p,rot:[0,90,180,270][Math.floor(Math.random()*4)],mode:c.level==="experto"?"list":"opts",options:mkOpts(q.id,c.level,Math.random),hint:true});
+  pHud();
+  P1.onAnswer=id=>pAnswer(id);
+  P1.onEstadio=e=>pEst(e);
+  P1.onHint=()=>{const cc=C[q.id];s.hint=true;P1.hintText("Pista: grupo "+(cc.g==="p"?"protozoo":cc.g==="h"?"helminto":"resto no parasitario")+" · tamaño aprox. "+cc.s+" (vale la mitad de puntos)")};
+  P1.fb("");P1.next("");
+  clearInterval(s.tm);
+  if(c.secs){P1.timer(1,c.secs+" s");s.tm=setInterval(()=>{
+    const left=c.secs*1000-(Date.now()-s.t0),sec=Math.ceil(left/1000);
+    P1.timer(left/(c.secs*1000),sec+" s",left<5000);
+    if(left<5000&&left>0&&sec!==s.lastTick){s.lastTick=sec;SND.tick()}
+    if(left<=0)pTimeout()},100)}else P1.timer(null);
+}
+function pHud(){const s=PR;P1.hud([["Pregunta",(s.qi+1)+"/"+s.Q.length],["Puntos",s.score],["Racha",s.streak],["Mejor",+store("pbest2")||"–"]])}
+function pAnswer(id){
+  const s=PR,q=s.cur,c=s.c;if(s.done||s.sp!==null)return;
+  const el=Date.now()-s.t0,ok=id===q.id;s.sp=id;
+  const g=pts(ok,el,c.secs,s.streak,s.hint);
+  bump(q.id,ok);
+  if(ok){s.score+=g;s.streak++;s.ok++;s.g=g;SND.ok()}else{s.streak=0;s.miss.push(q.id);s.g=0;SND.bad()}
+  P1.mark(q.id,id);pHud();
+  if(ok&&c.level!=="facil"){P1.askEstadio(shufR(STAGES,Math.random));P1.fb("")}
+  else pFinish(id);
+}
+function pEst(e){
+  const s=PR,q=s.cur;if(s.done||s.estOk!==null)return;
+  s.estOk=e===STAGE[q.id];P1.markEst(STAGE[q.id],e);
+  if(s.estOk){s.score+=50;s.g+=50;SND.ok()}else SND.bad();
+  pFinish(s.sp);
+}
+function pTimeout(){
+  const s=PR;if(s.done)return;
+  if(s.sp===null){s.streak=0;s.miss.push(s.cur.id);bump(s.cur.id,false);SND.time();P1.mark(s.cur.id,null);pHud();s.to=1;pFinish(null)}
+  else{P1.lockEst();SND.time();s.estOk=false;pFinish(s.sp)}
+}
+function pFinish(chosen){
+  const s=PR,q=s.cur,c=s.c;s.done=true;clearInterval(s.tm);P1.timer(null);
+  const ok=chosen===q.id;
+  const eTxt=ok&&c.level!=="facil"?(s.estOk?" · forma correcta (+50)":" · forma incorrecta (era: "+STAGE[q.id]+")"):"";
+  P1.fb(fbHTML(q.id,chosen,{ok,timeout:!!s.to,pts:s.g,eTxt,photo:q.p}));
+  s.to=0;pHud();
+  P1.next(s.qi+1<s.Q.length?"Siguiente":"Ver resultado",()=>{s.qi++;s.qi<s.Q.length?pQ():pEnd()});
+}
+function pEnd(){
+  const s=PR;pTimerStop();SND.end();
+  const b=+store("pbest2")||0;if(s.score>b)store("pbest2",String(s.score));
+  $("p1wrap").hidden=true;const e=$("end1");e.hidden=false;
+  const u=[...new Set(s.miss)];
+  e.innerHTML=`<h2>${s.score} puntos · ${s.ok} / ${s.Q.length} aciertos</h2>${s.score>b?'<div class="grpa">¡Nuevo mejor puntaje!</div>':""}`+
+   (u.length?`<div>A repasar:</div><table>${u.map(i=>`<tr><td><span class="dot" style="background:${C[i].c}"></span>${C[i].n}</td><td>${C[i].s}</td><td>${C[i].k}</td></tr>`).join("")}</table>`:"<div>¡Sin errores!</div>")+
+   `<div class="row"><button class="btn pri" id="pagain">Jugar de nuevo</button><button class="btn" id="pcfgb">Cambiar configuración</button>${u.length?'<button class="btn" id="pfail">Practicar solo estos</button>':""}</div>`;
+  $("pagain").onclick=startPractice;
+  $("pcfgb").onclick=()=>{e.hidden=true;$("pset").hidden=false};
+  if(u.length)$("pfail").onclick=()=>{CFG1.set(u);e.hidden=true;$("pset").hidden=false};
+  e.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+$("pgo").onclick=startPractice;
+$("pexit").onclick=()=>{if(PR)pTimerStop();$("p1wrap").hidden=true;$("pset").hidden=false};
+
+/* ===== Mi progreso ===== */
+function drawProg(){
+  const s=stats(),rows=IDS.map(i=>({i,n:(s[i]||{}).n||0,ok:(s[i]||{}).ok||0}));
+  const tot=rows.reduce((a,r)=>a+r.n,0),ok=rows.reduce((a,r)=>a+r.ok,0);
+  rows.sort((a,b)=>(a.n?a.ok/a.n:2)-(b.n?b.ok/b.n:2));
+  $("prog").innerHTML=`<div class="row" style="justify-content:space-between"><div><span class="badge">Mejor puntaje</span><br><b class="big">${+store("pbest2")||"–"}</b></div><div><span class="badge">Respuestas</span><br><b class="big">${tot}</b></div><div><span class="badge">Acierto global</span><br><b class="big">${tot?Math.round(100*ok/tot)+"%":"–"}</b></div></div>
+  <table>${rows.map(r=>`<tr><td><span class="dot" style="background:${C[r.i].c}"></span>${C[r.i].n}</td><td style="width:38%"><div class="pb"><i style="width:${r.n?100*r.ok/r.n:0}%;background:${C[r.i].c}"></i></div></td><td>${r.n?r.ok+"/"+r.n:"sin datos"}</td></tr>`).join("")}</table>
+  <div class="row"><button class="btn pri" id="pweak">Practicar los más flojos</button><button class="btn" id="preset">Borrar mis estadísticas</button></div><div class="hint">Las estadísticas se guardan solo en este navegador.</div>`;
+  $("pweak").onclick=()=>{const w=rows.filter(r=>r.n&&r.ok/r.n<.7).map(r=>r.i),l=w.length?w:rows.slice(0,5).map(r=>r.i);CFG1.set(l);tab(1)};
+  $("preset").onclick=()=>{if(confirm("¿Borrar todas tus estadísticas?")){store("stats2","{}");store("pbest2","0");drawProg()}};
+}
+
+setMute(muted);
+/* ===== En vivo (Firebase Realtime Database) ===== */
+const DBURL="https://microscopio-parasitologia-default-rtdb.firebaseio.com";
+let DB=null,OFF=0,LV=null;
+const SV=()=>firebase.database.ServerValue.TIMESTAMP,sNow=()=>Date.now()+OFF;
+const PID=(()=>{try{let v=sessionStorage.getItem("pid");if(!v){v=Math.random().toString(36).slice(2,10);sessionStorage.setItem("pid",v)}return v}catch(e){return Math.random().toString(36).slice(2,10)}})();
+const rref=c=>DB.ref("rooms/"+c);
+const lmsg=t=>{$("lmsg").textContent=t||""};
+function dbInit(){
+  if(DB)return true;if(!window.firebase)return false;
+  try{firebase.initializeApp({databaseURL:DBURL});DB=firebase.database();DB.ref(".info/serverTimeOffset").on("value",s=>{OFF=s.val()||0});return true}catch(e){return false}
+}
+const P3=Panel($("p3host"),"c");
+const CFG3=mkCfg($("lcfg"),"lc",false);
+function qIdx(){return String(LV.meta.q||"").split(",").map(Number)}
+function lastRoom(v){try{if(v===undefined)return sessionStorage.getItem("lastRoom");v?sessionStorage.setItem("lastRoom",v):sessionStorage.removeItem("lastRoom")}catch(e){}}
+
+async function createRoom(){
+  if(!dbInit()){lmsg("No hay conexión con Firebase. Probá recargar la página.");return}
+  const cfg=CFG3.get();if(!cfg.ids.length){lmsg("Elegí al menos una especie en el temario.");return}
+  const name=($("ln").value.trim()||"Anfitrión").slice(0,14),hp=$("lhp").value==="1";
+  store("nick",name);lmsg("Creando sala…");
+  try{
+    const A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let code="";
+    for(let t=0;t<6;t++){code="";for(let i=0;i<5;i++)code+=A[Math.floor(Math.random()*A.length)];if(!(await rref(code).child("meta/state").once("value")).exists())break}
+    const d={meta:{host:PID,hn:name,hp:hp?1:0,level:cfg.level,n:cfg.n,secs:cfg.secs,ids:cfg.ids.join(","),state:"lobby",qi:0,phase:"q",gen:1,createdAt:SV()}};
+    if(hp)d.players={[PID]:{n:name,s:0,k:0,on:true}};
+    await rref(code).set(d);lmsg("");attach(code,true)
+  }catch(e){lmsg("No se pudo crear la sala (revisá las reglas de Firebase).")}
+}
+async function joinRoom(code){
+  code=String(code||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  if(!code){lmsg("Escribí el código de la sala.");return}
+  if(!dbInit()){lmsg("No hay conexión con Firebase. Probá recargar la página.");return}
+  const name=($("ln").value.trim()||"Jugador").slice(0,14);store("nick",name);lmsg("Entrando…");
+  try{
+    const r=rref(code),snap=await r.once("value"),v=snap.val();
+    if(!v||!v.meta){lmsg("No existe esa sala. Revisá el código.");return}
+    if((v.kick||{})[PID]){lmsg("El anfitrión te sacó de esta sala.");return}
+    const me=(v.players||{})[PID];
+    if(!me&&v.meta.host!==PID){
+      if(v.meta.state!=="lobby"){lmsg("La partida ya empezó: la sala está cerrada.");return}
+      const np=Object.keys(v.players||{}).length;if(np>=10){lmsg("La sala está llena (máximo 10).");return}
+      let n=name,k=2;const used=Object.values(v.players||{}).map(p=>p.n);while(used.includes(n)){n=name.slice(0,12)+" "+k++}
+      await r.child("players/"+PID).set({n,s:0,k:0,on:true});
+    }
+    lmsg("");attach(code,v.meta.host===PID)
+  }catch(e){lmsg("No se pudo entrar a la sala.")}
+}
+function attach(code,isHost){
+  detach();
+  LV={code,host:isHost,meta:null,players:{},ans:{},qShown:null,rShown:null,bumped:{},endShown:null,answered:false,lastTick:99,toDone:null};
+  lastRoom(code);
+  const r=rref(code),err=()=>lmsg("Sin permiso en Firebase: revisá las reglas.");
+  r.child("meta").on("value",s=>{LV.meta=s.val();onLive()},err);
+  r.child("players").on("value",s=>{LV.players=s.val()||{};onLive()},err);
+  r.child("ans").on("value",s=>{LV.ans=s.val()||{};onLive()},err);
+  r.child("kick/"+PID).on("value",s=>{if(s.val()){const m="El anfitrión te sacó de la sala.";detach();lastRoom(false);showLiveHome();lmsg(m)}});
+  LV.conn=DB.ref(".info/connected");
+  LV.conn.on("value",s=>{if(s.val()===true&&LV){LV.armed=0;arm();
+    if(isHost){r.child("meta/hoff").onDisconnect().set(true).catch(()=>{});r.child("meta/hoff").set(false).catch(()=>{})}}});
+  LV.tm=setInterval(liveTick,250);
+  $("lhome").hidden=true;$("lroom").hidden=false;
+}
+function arm(){
+  if(!LV||LV.armed||!LV.players[PID])return;LV.armed=1;const r=rref(LV.code).child("players/"+PID+"/on");
+  r.onDisconnect().set(false).catch(()=>{});r.set(true).catch(()=>{});
+}
+function detach(){
+  if(!LV)return;clearInterval(LV.tm);
+  try{const r=rref(LV.code);r.child("meta").off();r.child("players").off();r.child("ans").off();r.child("kick/"+PID).off();LV.conn&&LV.conn.off()}catch(e){}
+  LV=null;P3.timer(null);
+}
+function showLiveHome(){
+  $("lroom").hidden=true;$("lhome").hidden=false;$("lob").hidden=true;$("lplay").hidden=true;$("lend").hidden=true;
+  const lr=lastRoom();$("lback").hidden=!lr;if(lr)$("lback").textContent="Volver a la sala "+lr;
+}
+async function leaveRoom(close){
+  if(!LV)return;const c=LV.code,wasHost=LV.host,st=LV.meta&&LV.meta.state;
+  try{
+    if(close&&wasHost)await rref(c).remove();
+    else if(st==="lobby"||st==="end")await rref(c).child("players/"+PID).remove();
+    else await rref(c).child("players/"+PID+"/on").set(false);
+  }catch(e){}
+  detach();lastRoom(false);showLiveHome();
+}
+
+function onLive(){
+  if(!LV)return;const m=LV.meta;
+  if(m===null&&LV.sawMeta){const msg="La sala se cerró.";detach();lastRoom(false);showLiveHome();lmsg(msg);return}
+  if(!m)return;LV.sawMeta=true;arm();
+  $("lhoff").hidden=!(m.hoff&&!LV.host);
+  $("lob").hidden=m.state!=="lobby";$("lplay").hidden=m.state!=="play";$("lend").hidden=m.state!=="end";
+  if(m.state==="lobby")drawLobby();
+  else if(m.state==="play"){
+    const key=m.gen+"-"+m.qi;
+    if(LV.qShown!==key)startLiveQ(key);
+    if(m.phase==="r"&&LV.rShown!==key)showReveal(key);
+    drawRank();
+    if(m.phase==="q")drawHudLive();
+  }else if(m.state==="end")drawEnd();
+}
+function drawLobby(){
+  const m=LV.meta,pl=Object.entries(LV.players),link=location.origin+location.pathname+"?sala="+LV.code;
+  const lv={facil:"Fácil",parcial:"Parcial",experto:"Experto"}[m.level];
+  $("lcode").textContent=LV.code;
+  $("llink").value=link;
+  $("linfo").textContent=`${lv} · ${m.n?m.n+" preguntas":"todas las fotos"} · ${m.secs} s por pregunta · ${m.ids.split(",").length} especies`;
+  $("lpl").innerHTML=pl.map(([id,p])=>`<div class="lp${p.on===false?" off":""}"><span>${esc(p.n)}${id===m.host?" ★":""}${id===PID?" (vos)":""}</span>${LV.host&&id!==PID?`<button class="btn" data-kick="${id}" style="padding:2px 9px">Sacar</button>`:""}</div>`).join("")||'<div class="hint">Todavía no hay jugadores.</div>';
+  $("lpl").querySelectorAll("[data-kick]").forEach(b=>b.onclick=()=>{const id=b.dataset.kick;rref(LV.code).update({["kick/"+id]:true,["players/"+id]:null})});
+  $("lhost").hidden=!LV.host;$("lwait").hidden=LV.host;
+  const n=pl.filter(([id,p])=>p.on!==false).length;
+  $("lstart").disabled=n<1;
+}
+async function startGame(){
+  if(!LV||!LV.host)return;const m=LV.meta,ids=m.ids.split(","),pool=shufR(poolOf(ids),Math.random),n=m.n?Math.min(m.n,pool.length):pool.length;
+  const seed=Math.random().toString(36).slice(2,8),upd={};
+  Object.keys(LV.players).forEach(id=>{const b="players/"+id+"/";upd[b+"s"]=0;upd[b+"k"]=0;upd[b+"lp"]=0;upd[b+"lo"]=0;upd[b+"lq"]=null;upd[b+"m"]=null});
+  upd.ans=null;upd["meta/q"]=pool.slice(0,n).map(x=>x.i).join(",");upd["meta/seed"]=seed;upd["meta/qi"]=0;upd["meta/phase"]="q";upd["meta/state"]="play";upd["meta/t0"]=SV();
+  try{await rref(LV.code).update(upd);SND.go()}catch(e){lmsg("No se pudo empezar la partida.")}
+}
+function startLiveQ(key){
+  const m=LV.meta,qs=qIdx(),ph=PHN[qs[m.qi]];if(!ph)return;
+  LV.qShown=key;LV.rShown=null;LV.answered=false;LV.estSent=null;LV.cur=ph;LV.lastTick=99;LV.toDone=null;
+  const spectator=LV.host&&!m.hp,r=mulberry(hs(m.seed+"|"+m.qi+"|"+PID));
+  P3.show({photo:ph.p,rot:[0,90,180,270][Math.floor(mulberry(hs(m.seed+"|"+m.qi))()*4)],mode:m.level==="experto"?"list":"opts",options:spectator?[]:mkOpts(ph.id,m.level,r),hint:false});
+  P3.fb("");P3.next("");
+  P3.onAnswer=id=>{
+    if(LV.answered)return;LV.answered=true;LV.myA=id;
+    rref(LV.code).child("ans/"+m.qi+"/"+PID).set({a:id,ts:SV()});
+    P3.lock();P3.pick(id);
+    if(m.level!=="facil")P3.askEstadio(shufR(STAGES,mulberry(hs(m.seed+"s"+m.qi+PID))));
+    P3.fb('<div class="hint">Respuesta enviada. Se corrige cuando termine el tiempo o respondan todos…</div>');
+  };
+  P3.onEstadio=e=>{if(LV.estSent)return;LV.estSent=e;rref(LV.code).child("ans/"+m.qi+"/"+PID+"/e").set(e);P3.lockEst();P3.pickEst(e)};
+  const me=LV.players[PID];drawHudLive();
+}
+function drawHudLive(){
+  const m=LV.meta,me=LV.players[PID],qs=qIdx(),act=Object.entries(LV.players).filter(([id,p])=>p.on!==false&&(id!==m.host||m.hp)),got=act.filter(([id])=>(LV.ans[m.qi]||{})[id]).length;
+  P3.hud([["Pregunta",(m.qi+1)+"/"+qs.length],...(me?[["Puntos",me.s||0],["Racha",me.k||0]]:[]),["Respondieron",got+"/"+act.length]]);
+}
+function showReveal(key){
+  const m=LV.meta,c=LV.cur.id,me=LV.players[PID],spectator=LV.host&&!m.hp;
+  if(!spectator&&(!me||me.lq!==m.qi))return; // espera a que el anfitrión publique el puntaje
+  LV.rShown=key;P3.timer(null);
+  const a=(LV.ans[m.qi]||{})[PID]||{},chosen=a.a,ok=!spectator&&me.lo>0,to=!chosen;
+  if(!spectator){
+    if(!LV.bumped[key]){LV.bumped[key]=1;bump(c,ok)}
+    ok?SND.ok():to?SND.time():SND.bad();
+    P3.mark(c,chosen);if(m.level!=="facil")P3.markEst(STAGE[c],a.e);
+    const eTxt=m.level!=="facil"&&ok?(me.lo===2?" · forma correcta (+50)":" · forma incorrecta (era: "+STAGE[c]+")"):"";
+    P3.fb(fbHTML(c,chosen,{ok,timeout:to,pts:me.lp||0,eTxt,photo:LV.cur.p}));
+  }else{P3.fb(fbHTML(c,null,{ok:true,pts:null,photo:LV.cur.p}))}
+}
+function drawRank(){
+  const pl=Object.values(LV.players).sort((a,b)=>(b.s||0)-(a.s||0)),rev=LV.meta.phase==="r";
+  $("lrank").innerHTML="<table>"+pl.map((p,i)=>`<tr${p.n===(LV.players[PID]||{}).n?' class="me"':""}><td>${i+1}</td><td>${esc(p.n)}${p.on===false?' <span class="hint">(desconectado)</span>':""}</td><td>${rev&&p.lp?'<span class="grpa">+'+p.lp+"</span>":""}</td><td><b>${p.s||0}</b></td></tr>`).join("")+"</table>";
+}
+function liveTick(){
+  if(!LV||!LV.meta||LV.meta.state!=="play")return;
+  const m=LV.meta,now=sNow(),t0=typeof m.t0==="number"?m.t0:null;
+  if(m.phase==="q"&&t0!==null){
+    const total=m.secs*1000,left=t0+total-now,sec=Math.max(0,Math.ceil(left/1000));
+    P3.timer(left/total,sec+" s",left<5000);
+    const spectator=LV.host&&!m.hp;
+    if(left<5000&&left>0&&sec!==LV.lastTick&&!spectator){LV.lastTick=sec;SND.tick()}
+    if(left<=0&&!LV.answered&&!spectator&&LV.toDone!==m.qi){LV.toDone=m.qi;P3.lock();P3.lockEst();SND.time();P3.fb('<div class="hint">¡Se acabó el tiempo!</div>')}
+    if(LV.host){
+      const act=Object.entries(LV.players).filter(([id,p])=>p.on!==false&&(id!==m.host||m.hp)),ans=LV.ans[m.qi]||{};
+      const done=act.length&&act.every(([id])=>{const a=ans[id];if(!a||!a.a)return false;if(m.level==="facil")return true;return a.e!==undefined});
+      if(left<=-1200||done)hostReveal();
+    }
+  }else if(m.phase==="r"&&LV.host&&typeof m.r0==="number"&&now>=m.r0+7000)hostNext();
+}
+async function hostReveal(){
+  const m=LV.meta,key=m.gen+"-"+m.qi;if(LV.revBusy===key)return;LV.revBusy=key;
+  const qi=m.qi,c=PHN[qIdx()[qi]].id,upd={},ans=LV.ans[qi]||{};
+  Object.entries(LV.players).forEach(([id,p])=>{
+    const a=ans[id];let ok=false,pt=0,eOk=false,k=p.k||0;
+    if(a&&a.a){ok=a.a===c;const el=Math.max(0,(typeof a.ts==="number"?a.ts:m.t0)-m.t0);
+      if(ok){pt=pts(true,el,m.secs,k,false);k++;if(a.e&&a.e===STAGE[c]){pt+=50;eOk=true}}else k=0}
+    else k=0;
+    const b="players/"+id+"/";upd[b+"s"]=(p.s||0)+pt;upd[b+"k"]=k;upd[b+"lp"]=pt;upd[b+"lo"]=ok?(eOk?2:1):0;upd[b+"lq"]=qi;
+    if(!ok)upd[b+"m/"+qi]=c+"|"+((a&&a.a)||"");
+  });
+  upd["meta/phase"]="r";upd["meta/r0"]=SV();
+  try{await rref(LV.code).update(upd)}catch(e){LV.revBusy=null}
+}
+async function hostNext(){
+  const m=LV.meta,key="n"+m.gen+"-"+m.qi;if(LV.nextBusy===key)return;LV.nextBusy=key;
+  const r=rref(LV.code);
+  try{
+    if(m.qi+1<qIdx().length)await r.update({"meta/qi":m.qi+1,"meta/phase":"q","meta/t0":SV()});
+    else{await r.child("meta/state").set("end");r.onDisconnect().remove().catch(()=>{})}
+  }catch(e){LV.nextBusy=null}
+}
+function drawEnd(){
+  const m=LV.meta,key=m.gen+"-end";
+  const pl=Object.entries(LV.players).map(([id,p])=>({id,...p})).sort((a,b)=>(b.s||0)-(a.s||0));
+  if(LV.endShown!==key){LV.endShown=key;SND.end()}
+  const top=pl.slice(0,3),order=[1,0,2].filter(i=>top[i]),hh=[110,80,55];
+  $("lpod").innerHTML=order.map(i=>`<div class="pcol"><div class="pn">${esc(top[i].n)}</div><div class="ps">${top[i].s||0}</div><div class="pbar" style="--h:${hh[i]}px;animation-delay:${(2-i)*.5}s">${i+1}</div></div>`).join("");
+  $("lall").innerHTML="<table>"+pl.map((p,i)=>`<tr><td>${i+1}</td><td>${esc(p.n)}</td><td><b>${p.s||0}</b></td></tr>`).join("")+"</table>";
+  const mine=Object.values((LV.players[PID]||{}).m||{}).map(x=>x.split("|")),mc=[...new Set(mine.map(x=>x[0]))];
+  $("lmine").innerHTML=mc.length?`<table>${mc.map(i=>`<tr><td><span class="dot" style="background:${C[i].c}"></span>${C[i].n}</td><td>${C[i].s}</td><td>${C[i].k}</td></tr>`).join("")}</table>`:"<div>"+(LV.players[PID]?"¡Sin errores!":"Sos anfitrión sin jugar.")+"</div>";
+  const cnt={};pl.forEach(p=>Object.values(p.m||{}).forEach(x=>{const i=x.split("|")[0];cnt[i]=(cnt[i]||0)+1}));
+  const top5=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  $("lgrp").innerHTML=top5.length?`<table>${top5.map(([i,n])=>`<tr><td><span class="dot" style="background:${C[i].c}"></span>${C[i].n}</td><td>${n} error${n>1?"es":""}</td><td>${C[i].d}</td></tr>`).join("")}</table>`:"<div>Nadie falló nada.</div>";
+  $("lrematch").hidden=!LV.host;$("lendwait").hidden=LV.host;
+}
+async function rematch(){
+  if(!LV||!LV.host)return;const m=LV.meta,upd={};
+  Object.keys(LV.players).forEach(id=>{const b="players/"+id+"/";upd[b+"s"]=0;upd[b+"k"]=0;upd[b+"lp"]=0;upd[b+"lo"]=0;upd[b+"lq"]=null;upd[b+"m"]=null});
+  upd.ans=null;upd["meta/state"]="lobby";upd["meta/gen"]=(m.gen||1)+1;upd["meta/qi"]=0;upd["meta/phase"]="q";
+  try{await rref(LV.code).onDisconnect().cancel();await rref(LV.code).update(upd)}catch(e){}
+}
+
+$("lcreate").onclick=createRoom;
+$("ljoin").onclick=()=>joinRoom($("lcode_in").value);
+$("lback").onclick=()=>{const c=lastRoom();if(c)joinRoom(c)};
+$("lstart").onclick=startGame;
+$("lleave").onclick=()=>leaveRoom(false);$("lclose").onclick=()=>leaveRoom(true);
+$("lleave2").onclick=()=>leaveRoom(false);$("lclose2").onclick=()=>leaveRoom(true);
+$("lrematch").onclick=rematch;$("lleave3").onclick=()=>leaveRoom(false);$("lclose3").onclick=()=>leaveRoom(true);
+$("lcopy").onclick=()=>{const l=$("llink").value;try{navigator.clipboard.writeText(l);$("lcopy").textContent="Copiado"}catch(e){$("llink").select()}setTimeout(()=>$("lcopy").textContent="Copiar link",1500)};
+try{const n=store("nick");if(n)$("ln").value=n}catch(e){}
+showLiveHome();
+
+const SALA=new URLSearchParams(location.search).get("sala");
+if(SALA){tab(3);$("lcode_in").value=SALA.toUpperCase().slice(0,6);lmsg("Poné tu nombre y tocá Unirme.")}
+
 </script>
 
 </body></html>
