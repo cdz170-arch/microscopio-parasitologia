@@ -92,6 +92,7 @@ i{font-style:italic}
         <button class="btn pri" id="nx" hidden>Siguiente</button>
       </div>
     </div>
+    <div class="card" id="live" hidden><b>Ranking en vivo</b> <span class="hint" id="livec"></span><div id="liveb"></div></div>
     <div class="card" id="end1" hidden style="margin-top:16px"></div>
   </section>
 
@@ -123,6 +124,8 @@ i{font-style:italic}
 
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
 const NP="Resto no parasitario";
 const C={
@@ -205,7 +208,7 @@ function answer(id){
   const ok=id===cur.id,c=C[cur.id];
   if(ok){score+=hintOn?.5:1;streak++}else{streak=0;miss.push(cur.id)}
   document.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.dataset.id===cur.id)b.classList.add("ok");else if(b.dataset.id===id)b.classList.add("bad")});
-  $("sc").textContent=score;$("sk").textContent=streak;
+  $("sc").textContent=score;$("sk").textContent=streak;livePush(qi+1,qi+1>=Q.length);
   const f=$("fb");f.hidden=false;f.className="fb "+(ok?"ok":"bad");
   f.innerHTML=`<b>${ok?"¡Correcto!":"Era:"} ${c.n}</b><dl class="kv"><dt>Tamaño</dt><dd>${c.s}</dd><dt>Clave</dt><dd>${c.k}</dd><dt>No confundir</dt><dd>${c.d}</dd></dl>`;
   $("nx").hidden=false;$("nx").textContent=qi+1<Q.length?"Siguiente":"Ver resultado";
@@ -223,10 +226,35 @@ function end1(){
 let chal="",t1=0;
 function hashS(t){let h=2166136261;for(const c of t){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
 function start1(code){
-  chal=typeof code==="string"?code:"";
+  liveStop();chal=typeof code==="string"?code:"";
   R=chal?mulberry(hashS(chal)):Math.random;t1=Date.now();
   $("chl").textContent=chal?"Desafío "+chal+" — todos los que usen este código ven las mismas 10 fotos":"";
-  Q=qlist();qi=0;score=0;streak=0;miss=[];$("end1").hidden=true;const b=+store("pbest")||0;$("bs").textContent=b||"–";showQ()}
+  Q=qlist();qi=0;score=0;streak=0;miss=[];$("end1").hidden=true;const b=+store("pbest")||0;$("bs").textContent=b||"–";showQ();liveStart()}
+
+
+/* ---------- Ranking en vivo (Firebase Realtime Database) ---------- */
+const DBURL="https://microscopio-parasitologia-default-rtdb.firebaseio.com";
+let DB=null,myRef=null,roomRef=null;const pid=store("pid")||(Math.random().toString(36).slice(2,10));store("pid",pid);
+function liveStop(){try{roomRef&&roomRef.off()}catch(e){}roomRef=myRef=null;$("live").hidden=true}
+function liveStart(){
+  liveStop();if(!chal||!window.firebase)return;
+  try{
+    if(!DB){firebase.initializeApp({databaseURL:DBURL});DB=firebase.database()}
+    const room=chal.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,8);if(!room)return;
+    roomRef=DB.ref("rooms/"+room+"/players");myRef=roomRef.child(pid);
+    myRef.onDisconnect&&0;
+    $("live").hidden=false;$("livec").textContent="sala "+room;
+    roomRef.on("value",s=>{
+      const a=Object.values(s.val()||{}).sort((x,y)=>y.s-x.s||x.t-y.t);
+      $("liveb").innerHTML="<table>"+a.map((p,i)=>`<tr><td>${i+1}</td><td>${String(p.n).replace(/</g,"&lt;")}</td><td>${p.q}/10${p.d?" ✓":""}</td><td><b>${p.s}</b></td></tr>`).join("")+"</table>"
+    },()=>{$("livec").textContent="(sin conexión)"});
+    livePush(0,false);
+  }catch(e){$("livec").textContent="(sin conexión)"}
+}
+function livePush(q,d){
+  if(!myRef)return;
+  myRef.set({n:($("chn").value.trim()||"Jugador").slice(0,14),s:score,q:q,d:d?1:0,t:Math.round((Date.now()-t1)/1000)}).catch(()=>{$("livec").textContent="(sin permiso: revisá reglas)"})
+}
 
 /* ---------- Modo 2: preparado ---------- */
 const V2=Viewer($("s2"),$("st2"),$("zl2"),10);
