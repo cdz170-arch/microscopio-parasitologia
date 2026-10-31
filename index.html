@@ -125,6 +125,7 @@ tr.me td{background:var(--okbg)}
     <div id="m2start" class="card">
       <h2>Preparado de materia fecal</h2>
       <p style="margin:0">Se genera una muestra con parásitos escondidos entre campos vacíos y restos. Recorré la platina, buscá con 10× y acercate (40×) para confirmar, marcá lo que encuentres y al final hacé tu informe.</p>
+      <div class="hint" id="m2cnt"></div>
       <div class="ctrl" style="justify-content:flex-start"><span class="badge">Dificultad</span>
         <button class="btn" data-n="2">Fácil (2 hallazgos)</button><button class="btn pri" data-n="3">Media (3)</button><button class="btn" data-n="5">Difícil (5)</button></div>
     </div>
@@ -413,6 +414,8 @@ function Panel(host,p){
 }
 
 /* selector de configuración (nivel, preguntas, tiempo, temario) */
+const nPh=ids=>ids.reduce((a,i)=>a+C[i].ph.length,0);
+$("m2cnt").textContent="Banco de fotos: "+nPh(IDS)+" fotos de "+IDS.length+" especies/formas ("+nPh(IDS.filter(i=>C[i].g==="p"))+" de protozoos, "+nPh(IDS.filter(i=>C[i].g==="h"))+" de helmintos, "+nPh(IDS.filter(i=>C[i].g==="n"))+" de restos).";
 function mkCfg(el,p,withNoTime){
   const st={level:"parcial",n:10,secs:withNoTime?0:30,sel:new Set(IDS)};
   const seg=(k,items)=>`<div class="seg" data-k="${k}">${items.map(([v,l])=>`<button class="btn${String(st[k])===String(v)?" pri":""}" data-v="${v}">${l}</button>`).join("")}</div>`;
@@ -420,10 +423,10 @@ function mkCfg(el,p,withNoTime){
   const GR=[["p","Protozoos"],["h","Helmintos"],["n","Restos"]];
   function draw(){
     el.innerHTML=`<div class="fld"><span class="badge">Nivel</span>${seg("level",[["facil","Fácil"],["parcial","Parcial"],["experto","Experto"]])}<div class="hint">${LH[st.level]}</div></div>
-    <div class="fld"><span class="badge">Preguntas</span>${seg("n",[[5,"5"],[10,"10"],[20,"20"],[0,"Todas"]])}</div>
+    <div class="fld"><span class="badge">Preguntas</span>${seg("n",[[5,"5"],[10,"10"],[20,"20"],[0,"Todas ("+nPh([...st.sel])+")"]])}<div class="hint">Hay ${nPh([...st.sel])} fotos disponibles con el temario elegido${st.n&&st.n>nPh([...st.sel])?" (se usarán todas)":""}.</div></div>
     <div class="fld"><span class="badge">Tiempo por pregunta</span>${seg("secs",[...(withNoTime?[[0,"Sin tiempo"]]:[]),[10,"10 s"],[15,"15 s"],[20,"20 s"],[30,"30 s"],[45,"45 s"],[60,"60 s"]])}</div>
-    <div class="fld"><span class="badge">Temario (${st.sel.size} de ${IDS.length})</span><div class="seg" data-k="grp">${GR.map(([g,l])=>{const ids=IDS.filter(i=>C[i].g===g),all=ids.every(i=>st.sel.has(i));return`<button class="btn${all?" pri":""}" data-v="${g}">${l}</button>`}).join("")}</div>
-    <details${st.open?" open":""}><summary>Elegir especies una por una</summary><div class="chk">${IDS.map(i=>`<label><input type="checkbox" data-id="${i}"${st.sel.has(i)?" checked":""}><span class="dot" style="background:${C[i].c}"></span>${C[i].n}</label>`).join("")}</div></details></div>`;
+    <div class="fld"><span class="badge">Temario (${st.sel.size} de ${IDS.length} especies · ${nPh([...st.sel])} de ${nPh(IDS)} fotos)</span><div class="seg" data-k="grp">${GR.map(([g,l])=>{const ids=IDS.filter(i=>C[i].g===g),all=ids.every(i=>st.sel.has(i));return`<button class="btn${all?" pri":""}" data-v="${g}">${l} (${nPh(ids)})</button>`}).join("")}</div>
+    <details${st.open?" open":""}><summary>Elegir especies una por una</summary><div class="chk">${IDS.map(i=>`<label><input type="checkbox" data-id="${i}"${st.sel.has(i)?" checked":""}><span class="dot" style="background:${C[i].c}"></span>${C[i].n} (${C[i].ph.length})</label>`).join("")}</div></details></div>`;
     el.querySelector("details").ontoggle=e=>{st.open=e.target.open};
     el.querySelectorAll(".seg .btn").forEach(b=>b.onclick=()=>{const k=b.parentNode.dataset.k,v=b.dataset.v;
       if(k==="grp"){const ids=IDS.filter(i=>C[i].g===v);if(ids.every(i=>st.sel.has(i)))ids.forEach(i=>st.sel.delete(i));else ids.forEach(i=>st.sel.add(i))}
