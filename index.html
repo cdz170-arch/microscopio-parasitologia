@@ -201,23 +201,23 @@ tr.me td{background:var(--okbg)}
 <script>
 const NP="Resto no parasitario";
 const C={
-giardia:{n:"<i>Giardia lamblia</i> (trofozoíto)",g:"p",s:"12–15 µm (hasta 20)",k:"Forma de pera/cometa, 2 núcleos con cariosoma central (“cara de búho”), axonemas y disco suctor. En fresco: movimiento de “hoja que cae”.",d:"<i>Chilomastix</i>, flagelados no patógenos",ph:["giardia_t_1"]},
+giardia:{n:"<i>Giardia lamblia</i> (forma vegetativa)",g:"p",s:"12–15 µm (hasta 20)",k:"Forma de pera/cometa, 2 núcleos con cariosoma central (“cara de búho”), axonemas y disco suctor. En fresco: movimiento de “hoja que cae”.",d:"<i>Chilomastix</i>, flagelados no patógenos",ph:["giardia_t_1"]},
 giardiaq:{n:"<i>Giardia lamblia</i> (quiste)",g:"p",s:"8–12 × 7–10 µm",k:"Ovoide, pared gruesa y refringente con espacio claro, 2–4 núcleos en un polo y axonemas/cuerpos medios visibles como filamentos internos.",d:"<i>Blastocystis</i>, levaduras, quistes de <i>Chilomastix</i> (en limón)",ph:["giardia_q2"]},
-entamoeba:{n:"<i>Entamoeba</i> sp. (trofozoíto)",g:"p",s:"15–25 µm (hasta 40 si es <i>E. histolytica</i>)",k:"Un núcleo con cromatina periférica fina y cariosoma central pequeño; citoplasma con vacuolas y a veces eritrocitos fagocitados; movimiento direccional por seudópodos.",d:"Leucocitos, <i>E. coli</i> trofozoíto (cromatina gruesa, cariosoma excéntrico)",ph:["trofo_entamoeba_1","trofo_entamoeba_2"]},
+entamoeba:{n:"<i>Entamoeba</i> sp. (forma vegetativa)",g:"p",s:"15–25 µm (hasta 40 si es <i>E. histolytica</i>)",k:"Un núcleo con cromatina periférica fina y cariosoma central pequeño; citoplasma con vacuolas y a veces eritrocitos fagocitados; movimiento direccional por seudópodos.",d:"Leucocitos, <i>E. coli</i> trofozoíto (cromatina gruesa, cariosoma excéntrico)",ph:["trofo_entamoeba_1","trofo_entamoeba_2"]},
 ecoli:{n:"<i>Entamoeba coli</i> (quiste)",g:"p",s:"15–30 µm (más grande que <i>E. histolytica</i>)",k:"Hasta 8 núcleos, cromatina periférica gruesa e irregular, cariosoma excéntrico; barras cromatoides escasas y astilladas.",d:"<i>Blastocystis</i> (vacuola central) y quistes de <i>E. histolytica</i> (máx. 4 núcleos)",ph:["quiste_ecoli_1","quiste_ecoli_2","quiste_ecoli_3"]},
-ecolit:{n:"<i>Entamoeba coli</i> (trofozoíto)",g:"p",s:"20–50 µm",k:"Un núcleo con cromatina periférica gruesa e irregular y cariosoma excéntrico; citoplasma sucio, granular y vacuolado con bacterias ingeridas; seudópodos romos y movimiento lento, no direccional.",d:"<i>E. histolytica</i> (cromatina fina, cariosoma central, a veces eritrocitos)",ph:["trofo_ecoli_1","trofo_ecoli_2"]},
+ecolit:{n:"<i>Entamoeba coli</i> (forma vegetativa)",g:"p",s:"20–50 µm",k:"Un núcleo con cromatina periférica gruesa e irregular y cariosoma excéntrico; citoplasma sucio, granular y vacuolado con bacterias ingeridas; seudópodos romos y movimiento lento, no direccional.",d:"<i>E. histolytica</i> (cromatina fina, cariosoma central, a veces eritrocitos)",ph:["trofo_ecoli_1","trofo_ecoli_2"]},
 endolimax:{n:"<i>Endolimax nana</i> (quiste)",g:"p",s:"5–10 µm (pequeño)",k:"Ovalado, 4 núcleos con cariosoma grande y sin cromatina periférica (se ven como puntos); sin barras cromatoides.",d:"<i>Iodamoeba</i> (1 núcleo + vacuola de glucógeno)",ph:["endolimax_1","endolimax_2","endolimax_3","endolimax_6"]},
 iodamoeba:{n:"<i>Iodamoeba bütschlii</i> (quiste)",g:"p",s:"5–20 µm",k:"Un solo núcleo con gran cariosoma, y vacuola de glucógeno que con lugol se tiñe marrón rojizo.",d:"<i>Endolimax</i> (4 núcleos, sin vacuola de yodo)",ph:["quiste_iodamoeba_2","quiste_iodamoeba_3","iodamoeba_lugol_1","iodamoeba_lugol_2","iodamoeba_lugol_3"]},
 blasto:{n:"<i>Blastocystis</i> spp.",g:"p",s:"5–30 µm (muy variable)",k:"Gran vacuola central que desplaza el citoplasma y los núcleos a la periferia (forma vacuolar); es menor que <i>Giardia</i> y que el quiste de <i>E. coli</i>.",d:"Quiste de <i>E. coli</i>, levaduras",ph:["blastocystis_2","blastocystis_3"]},
 balan:{n:"<i>Balantidium coli</i> (quiste)",g:"p",s:"50–70 µm (el mayor protozoo)",k:"Esférico u ovoide, pared doble gruesa, macronúcleo en forma de C/riñón y a veces cilios visibles en el trofozoíto.",d:"Huevos de helmintos grandes",ph:["balantidium_1","balantidium_2"]},
 chilo:{n:"<i>Chilomastix mesnili</i> (quiste)",g:"p",s:"6–10 µm",k:"Forma de limón o pera con un “pezón” apical, un núcleo y citostoma en forma de escudo/violín.",d:"<i>Endolimax</i>, <i>Giardia</i> (quiste mayor, 2–4 núcleos)",ph:["chilomastix_q","chilomastix_q2"]},
-chilot:{n:"<i>Chilomastix mesnili</i> (trofozoíto)",g:"p",s:"6–24 µm",k:"Forma de pera con extremo posterior afilado, un núcleo anterior y citostoma en forma de surco; movimiento en espiral rotatorio (3 flagelos anteriores y 1 en el citostoma).",d:"<i>Giardia</i> (2 núcleos, disco suctor), <i>Trichomonas</i>",ph:["chilomastix_t1"]},
+chilot:{n:"<i>Chilomastix mesnili</i> (forma vegetativa)",g:"p",s:"6–24 µm",k:"Forma de pera con extremo posterior afilado, un núcleo anterior y citostoma en forma de surco; movimiento en espiral rotatorio (3 flagelos anteriores y 1 en el citostoma).",d:"<i>Giardia</i> (2 núcleos, disco suctor), <i>Trichomonas</i>",ph:["chilomastix_t1"]},
 ascaris:{n:"<i>Ascaris lumbricoides</i> (huevo)",g:"h",s:"45–75 × 35–50 µm (fértil); hasta 90 µm el infértil",k:"Fértil: redondo-ovalado, cubierta mamelonada gruesa y cigoto central. Infértil: más alargado, cubierta fina e irregular, contenido granular.",d:"Restos vegetales, huevos decorticados",ph:["ascaris_fertil","ascaris_infertil","ascaris_3"]},
 trichuris:{n:"<i>Trichuris trichiura</i> (huevo)",g:"h",s:"50–54 × 22–23 µm",k:"Forma de barril o limón, con dos tapones mucosos polares hialinos y cubierta marrón lisa.",d:"Huevos de <i>Capillaria</i>",ph:["trichuris_1","trichuris_2"]},
-uncinaria:{n:"Uncinarias (huevo)",g:"h",s:"60–75 × 35–40 µm",k:"Ovalado de extremos redondeados, cáscara fina y lisa con espacio claro, y 4–8 blastómeras en segmentación.",d:"Huevos de <i>Strongyloides</i> (raros en heces), burbujas",ph:["uncinaria_1","uncinaria_2","uncinaria_3"]},
+uncinaria:{n:"Uncinarias (<i>Ancylostoma duodenale</i> y <i>Necator americanus</i>) (huevo)",g:"h",s:"60–75 × 35–40 µm",k:"Ovalado de extremos redondeados, cáscara fina y lisa con espacio claro, y 4–8 blastómeras en segmentación.",d:"Huevos de <i>Strongyloides</i> (raros en heces), burbujas",ph:["uncinaria_1","uncinaria_2","uncinaria_3"]},
 strongy:{n:"<i>Strongyloides stercoralis</i> (larva)",g:"h",s:"200–250 µm (larva rabditiforme)",k:"Larva con esófago rabditiforme (bulbo posterior), vestíbulo bucal corto y primordio genital visible; se ve en heces frescas, no el huevo.",d:"Larvas de uncinaria (vestíbulo bucal largo)",ph:["strongy_1","strongy_40x","strongy_3"]},
 entero:{n:"<i>Enterobius vermicularis</i> (huevo)",g:"h",s:"50–60 × 20–30 µm",k:"Asimétrico (plano-convexo, forma de D), cáscara fina y lisa, con larva en su interior.",d:"Burbujas, huevos de uncinaria",ph:["enterobius_40x"]},
-taenia:{n:"<i>Taenia</i> sp. (huevo)",g:"h",s:"30–40 µm",k:"Esférico, cubierta (embrióforo) gruesa con estriación radial y oncósfera interna con 6 ganchos. <i>T. solium</i> y <i>T. saginata</i> son indistinguibles.",d:"Levaduras, quistes grandes",ph:["taenia_10x_1","taenia_10x_2","taenia_40x"]},
+taenia:{n:"<i>Taenia</i> spp. (<i>T. solium</i> y <i>T. saginata</i>) (huevo)",g:"h",s:"30–40 µm",k:"Esférico, cubierta (embrióforo) gruesa con estriación radial y oncósfera interna con 6 ganchos. <i>T. solium</i> y <i>T. saginata</i> son indistinguibles.",d:"Levaduras, quistes grandes",ph:["taenia_10x_1","taenia_10x_2","taenia_40x"]},
 hnana:{n:"<i>Hymenolepis nana</i> (huevo)",g:"h",s:"40–50 µm",k:"Esférico-ovalado, membrana externa fina, embrióforo interno con 2 engrosamientos polares de los que salen 4–8 filamentos.",d:"<i>H. diminuta</i> (mayor, sin filamentos)",ph:["hnana_1","hnana_2"]},
 hdim:{n:"<i>Hymenolepis diminuta</i> (huevo)",g:"h",s:"70–85 µm",k:"Mayor que <i>H. nana</i>, color amarillo-marrón, 3 capas gruesas y sin filamentos polares; oncósfera con 6 ganchos.",d:"<i>H. nana</i> (menor, con filamentos)",ph:["hdiminuta_1","hdiminuta_2"]},
 dibo:{n:"<i>Diphyllobothrium latum</i> (huevo)",g:"h",s:"58–76 × 40–51 µm",k:"Ovalado, color café, inmaduro (célula granulosa), opérculo en un polo y botón abomasal en el otro.",d:"Huevos de <i>Fasciola</i> (más grandes)",ph:["diphyllobothrium_1"]},
@@ -271,8 +271,8 @@ function emptyCanvas(seed){
   return cv;
 }
 function build(n){
-  const pool=IDS.filter(i=>i!=="nopar");truth=shuf(pool).slice(0,n);
-  const cells=[];truth.forEach(id=>{const p=rnd(C[id].ph);cells.push({id,p})});
+  const pool=Object.keys(REP).filter(k=>k!=="nopar");truth=shuf(pool).slice(0,n);
+  const cells=[];truth.forEach(sp=>{const id=rnd(IDS.filter(i=>SP[i]===sp)),p=rnd(C[id].ph);cells.push({id,p})});
   const np=2+Math.floor(Math.random()*2);shuf(C.nopar.ph).slice(0,np).forEach(p=>cells.push({id:"nopar",p}));
   F=Array.from({length:COLS*ROWS},(_,i)=>({id:null,seed:Math.floor(Math.random()*1e9)}));
   shuf([...Array(F.length).keys()]).slice(0,cells.length).forEach((idx,k)=>F[idx]=cells[k]);
@@ -294,7 +294,7 @@ function show(){
 }
 function paint(){
   [...$("map").children].forEach((b,i)=>{b.className=(visited.has(i)?"vis ":"")+(marks[i]?"mk ":"")+(i===pos?"cur":"");b.textContent=marks[i]?"●":""});
-  const r=$("rep");r.innerHTML="";Object.entries(marks).forEach(([i,id])=>{const s=document.createElement("span");s.className="chip";s.innerHTML=`C${+i+1}: ${id==="nopar"?"Resto":C[id].n}`;s.onclick=()=>{delete marks[i];paint();if(+i===pos)$("mark").textContent="Marcar hallazgo en este campo"};r.appendChild(s)});
+  const r=$("rep");r.innerHTML="";Object.entries(marks).forEach(([i,id])=>{const s=document.createElement("span");s.className="chip";s.innerHTML=`C${+i+1}: ${id==="nopar"?"Resto":SPN[id]}`;s.onclick=()=>{delete marks[i];paint();if(+i===pos)$("mark").textContent="Marcar hallazgo en este campo"};r.appendChild(s)});
   $("nm").textContent=Object.keys(marks).length;
 }
 function go(i){if(i<0||i>=F.length)return;pos=i;show()}
@@ -302,7 +302,7 @@ $("lf").onclick=()=>pos%COLS&&go(pos-1);$("rt").onclick=()=>pos%COLS<COLS-1&&go(
 $("up").onclick=()=>go(pos-COLS);$("dn").onclick=()=>go(pos+COLS);
 document.addEventListener("keydown",e=>{if($("m2play").hidden||$("m2").hidden)return;const k={ArrowLeft:"lf",ArrowRight:"rt",ArrowUp:"up",ArrowDown:"dn"}[e.key];if(k){e.preventDefault();$(k).click()}});
 $("mark").onclick=()=>{const p=$("pick");p.innerHTML="";
-  [...IDS.filter(i=>i!=="nopar"),"nopar"].forEach(id=>{const b=document.createElement("button");b.className="opt";b.innerHTML=id==="nopar"?"Resto / artefacto":C[id].n;b.onclick=()=>{marks[pos]=id;$("picker").hidden=true;$("mark").textContent="Cambiar marca de este campo";paint()};p.appendChild(b)});
+  [...Object.keys(REP).filter(k=>k!=="nopar"),"nopar"].forEach(id=>{const b=document.createElement("button");b.className="opt";b.innerHTML=id==="nopar"?"Resto / artefacto":SPN[id];b.onclick=()=>{marks[pos]=id;$("picker").hidden=true;$("mark").textContent="Cambiar marca de este campo";paint()};p.appendChild(b)});
   $("picker").hidden=false};
 document.querySelectorAll("#m2start [data-n]").forEach(b=>b.onclick=()=>build(+b.dataset.n));
 $("newp").onclick=()=>{$("m2play").hidden=true;$("m2res").hidden=true;$("m2start").hidden=false};
@@ -310,15 +310,15 @@ $("fin").onclick=()=>{
   const found=new Set(Object.values(marks).filter(i=>i!=="nopar"));
   const hit=truth.filter(i=>found.has(i)),miss2=truth.filter(i=>!found.has(i)),fp=[...found].filter(i=>!truth.includes(i));
   // marcas mal ubicadas: especie marcada en un campo que no la contiene
-  const wrong=Object.entries(marks).filter(([i,id])=>id!=="nopar"&&F[i].id!==id);
-  const where=truth.map(id=>{const i=F.findIndex(f=>f.id===id);return `<li><b>${C[id].n}</b> — campo ${Math.floor(i/COLS)+1},${i%COLS+1}</li>`}).join("");
+  const wrong=Object.entries(marks).filter(([i,id])=>id!=="nopar"&&SP[F[i].id]!==id);
+  const where=truth.map(id=>{const i=F.findIndex(f=>f.id&&SP[f.id]===id);return `<li><b>${SPN[id]}</b> — campo ${Math.floor(i/COLS)+1},${i%COLS+1}</li>`}).join("");
   const pts=hit.length*2-fp.length;
   const r=$("m2res");r.hidden=false;
   r.innerHTML=`<h2>Informe corregido: ${hit.length} de ${truth.length} parásitos</h2>
-   <div class="chips">${hit.map(i=>`<span class="chip" style="border-color:var(--ok)">✔ ${C[i].n}</span>`).join("")}${miss2.map(i=>`<span class="chip" style="border-color:var(--bad)">✘ no lo viste: ${C[i].n}</span>`).join("")}${fp.map(i=>`<span class="chip" style="border-color:var(--bad)">⚠ falso positivo: ${C[i].n}</span>`).join("")}</div>
+   <div class="chips">${hit.map(i=>`<span class="chip" style="border-color:var(--ok)">✔ ${SPN[i]}</span>`).join("")}${miss2.map(i=>`<span class="chip" style="border-color:var(--bad)">✘ no lo viste: ${SPN[i]}</span>`).join("")}${fp.map(i=>`<span class="chip" style="border-color:var(--bad)">⚠ falso positivo: ${SPN[i]}</span>`).join("")}</div>
    <div class="hint">${pts>=truth.length*2?"Informe perfecto.":"Puntaje: "+Math.max(0,pts)+" / "+truth.length*2+" (2 por hallazgo correcto, −1 por falso positivo)."}${wrong.length?" Marcaste "+wrong.length+" campo(s) con un nombre equivocado.":""}</div>
    <div><b>Dónde estaban:</b><ul style="margin:4px 0 0;padding-left:20px">${where}</ul></div>
-   ${miss2.length||fp.length?`<table>${[...miss2,...fp].map(i=>`<tr><td>${C[i].n}</td><td>${C[i].s}</td><td>${C[i].k}</td></tr>`).join("")}</table>`:""}
+   ${miss2.length||fp.length?`<table>${[...miss2,...fp].map(i=>{const f=F.find(f=>f.id&&SP[f.id]===i),cc=C[f?f.id:REP[i]];return `<tr><td>${SPN[i]} (${STAGE[f?f.id:REP[i]].toLowerCase()})</td><td>${cc.s}</td><td>${cc.k}</td></tr>`}).join("")}</table>`:""}
    <div><button class="btn pri" id="again2">Nuevo preparado</button></div>`;
   $("again2").onclick=$("newp").onclick;r.scrollIntoView({behavior:"smooth",block:"nearest"});
 };
@@ -329,8 +329,13 @@ $("t1").onclick=()=>tab(1);$("t2").onclick=()=>tab(2);$("t3").onclick=()=>tab(3)
 $("mute").onclick=()=>setMute(!muted);
 
 /* ===== datos extra, sonido, utilidades ===== */
-const STAGE={giardia:"Trofozoíto",entamoeba:"Trofozoíto",ecoli:"Quiste",ecolit:"Trofozoíto",giardiaq:"Quiste",chilot:"Trofozoíto",endolimax:"Quiste",iodamoeba:"Quiste",blasto:"Forma vacuolar",balan:"Quiste",chilo:"Quiste",ascaris:"Huevo",trichuris:"Huevo",uncinaria:"Huevo",strongy:"Larva",entero:"Huevo",taenia:"Huevo",hnana:"Huevo",hdim:"Huevo",dibo:"Huevo",nopar:"Resto"};
-const STAGES=["Quiste","Trofozoíto","Huevo","Larva","Forma vacuolar","Resto"];
+const STAGE={giardia:"Forma vegetativa",entamoeba:"Forma vegetativa",ecoli:"Quiste",ecolit:"Forma vegetativa",giardiaq:"Quiste",chilot:"Forma vegetativa",endolimax:"Quiste",iodamoeba:"Quiste",blasto:"Forma vacuolar",balan:"Quiste",chilo:"Quiste",ascaris:"Huevo",trichuris:"Huevo",uncinaria:"Huevo",strongy:"Larva",entero:"Huevo",taenia:"Huevo",hnana:"Huevo",hdim:"Huevo",dibo:"Huevo",nopar:"Resto"};
+const SP={giardia:"giardia",giardiaq:"giardia",entamoeba:"entamoeba",ecoli:"ecoli",ecolit:"ecoli",endolimax:"endolimax",iodamoeba:"iodamoeba",blasto:"blasto",balan:"balan",chilo:"chilo",chilot:"chilo",ascaris:"ascaris",trichuris:"trichuris",uncinaria:"uncinaria",strongy:"strongy",entero:"entero",taenia:"taenia",hnana:"hnana",hdim:"hdim",dibo:"dibo",nopar:"nopar"};
+const SPN={giardia:"<i>Giardia lamblia</i>",entamoeba:"<i>Entamoeba</i> sp.",ecoli:"<i>Entamoeba coli</i>",endolimax:"<i>Endolimax nana</i>",iodamoeba:"<i>Iodamoeba bütschlii</i>",blasto:"<i>Blastocystis</i> spp.",balan:"<i>Balantidium coli</i>",chilo:"<i>Chilomastix mesnili</i>",ascaris:"<i>Ascaris lumbricoides</i>",trichuris:"<i>Trichuris trichiura</i>",uncinaria:"Uncinarias (<i>Ancylostoma duodenale</i> y <i>Necator americanus</i>)",strongy:"<i>Strongyloides stercoralis</i>",entero:"<i>Enterobius vermicularis</i>",taenia:"<i>Taenia</i> spp. (<i>T. solium</i> y <i>T. saginata</i>)",hnana:"<i>Hymenolepis nana</i>",hdim:"<i>Hymenolepis diminuta</i>",dibo:"<i>Diphyllobothrium latum</i>",nopar:"Resto no parasitario (fibra, pelo, vegetal)"};
+const REP={};IDS.forEach(i=>{if(!REP[SP[i]])REP[SP[i]]=i});
+const sameSp=(a,b)=>!!a&&!!b&&SP[a]===SP[b];
+const SPplain=k=>SPN[k].replace(/<[^>]+>/g,"");
+const STAGES=["Quiste","Forma vegetativa","Huevo","Larva","Forma vacuolar","Resto"];
 const CONF={ecolit:["entamoeba","ecoli","giardia","blasto"],giardiaq:["giardia","chilo","blasto","endolimax"],chilot:["giardia","chilo","entamoeba","blasto"],ecoli:["entamoeba","blasto","endolimax","iodamoeba"],entamoeba:["ecoli","blasto","giardia","iodamoeba"],blasto:["ecoli","endolimax","iodamoeba","chilo"],endolimax:["iodamoeba","chilo","ecoli","blasto"],iodamoeba:["endolimax","ecoli","blasto","chilo"],giardia:["chilo","entamoeba","balan","endolimax"],chilo:["giardia","endolimax","iodamoeba","blasto"],balan:["giardia","ecoli","entamoeba","blasto"],hnana:["hdim","taenia","entero","trichuris"],hdim:["hnana","taenia","dibo","ascaris"],taenia:["hnana","hdim","ascaris","dibo"],dibo:["hdim","ascaris","uncinaria","taenia"],ascaris:["taenia","hdim","dibo","trichuris"],uncinaria:["entero","ascaris","hnana","strongy"],entero:["uncinaria","hnana","strongy","taenia"],trichuris:["ascaris","dibo","entero","hdim"],strongy:["uncinaria","entero","nopar","trichuris"],nopar:["blasto","strongy","entero","taenia"]};
 const PN=id=>C[id].n.replace(/<[^>]+>/g,"");
 const PHN=[];IDS.forEach(id=>C[id].ph.forEach(p=>PHN.push({id,p})));
@@ -339,9 +344,12 @@ const hs=t=>{let h=2166136261;for(const c of String(t)){h^=c.charCodeAt(0);h=Mat
 const shufR=(a,r)=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function mkOpts(id,level,r){
-  if(level==="experto")return IDS.slice().sort((a,b)=>PN(a).localeCompare(PN(b),"es"));
-  const d=level==="facil"?shufR(IDS.filter(i=>i!==id&&C[i].g!==C[id].g),r).slice(0,3):shufR(CONF[id],r).slice(0,3);
-  return shufR([id,...d],r);
+  const sp=SP[id];
+  if(level==="experto")return Object.keys(REP).sort((a,b)=>SPplain(a).localeCompare(SPplain(b),"es")).map(k=>REP[k]);
+  const cand=level==="facil"?IDS.filter(i=>C[i].g!==C[id].g):(CONF[id]||[]);
+  const seen=new Set([sp]),pool=[];
+  shufR(cand,r).concat(shufR(IDS.filter(i=>C[i].g===C[id].g),r)).forEach(i=>{if(!seen.has(SP[i])){seen.add(SP[i]);pool.push(REP[SP[i]])}});
+  return shufR([REP[sp],...pool.slice(0,3)],r);
 }
 function pts(ok,el,secs,streak,hint){if(!ok)return 0;const w=secs?secs*1000:30000;return(hint?50:100)+Math.round(50*Math.max(0,1-el/w))+Math.min(streak,5)*10}
 function stats(){try{return JSON.parse(store("stats2")||"{}")}catch(e){return{}}}
@@ -359,7 +367,7 @@ function fbHTML(c,chosen,res){
   let h=`<div class="fb ${res.ok?"ok":"bad"}" style="border-color:${cc.c}"><b><span class="dot" style="background:${cc.c}"></span>${res.timeout?"Se acabó el tiempo. Era:":res.ok?"¡Correcto!":"Era:"} ${cc.n}</b>`;
   if(res.pts!=null)h+=`<div class="hint">${res.pts>0?"+"+res.pts+" puntos":"0 puntos"}${res.eTxt||""}</div>`;
   h+=`<dl class="kv"><dt>Forma</dt><dd>${STAGE[c]}</dd><dt>Tamaño</dt><dd>${cc.s}</dd><dt>Clave</dt><dd>${cc.k}</dd><dt>No confundir</dt><dd>${cc.d}</dd></dl>`;
-  if(!res.ok&&chosen&&chosen!==c&&C[chosen])h+=`<div class="cmp"><figure><img src="${src(C[chosen].ph[0])}" alt=""><figcaption>Elegiste: ${C[chosen].n}</figcaption></figure><figure><img src="${src(res.photo)}" alt=""><figcaption>Correcto: ${cc.n}</figcaption></figure></div>`;
+  if(!res.ok&&chosen&&!sameSp(chosen,c)&&C[chosen])h+=`<div class="cmp"><figure><img src="${src(C[chosen].ph[0])}" alt=""><figcaption>Elegiste: ${SPN[SP[chosen]]}</figcaption></figure><figure><img src="${src(res.photo)}" alt=""><figcaption>Correcto: ${cc.n}</figcaption></figure></div>`;
   return h+"</div>";
 }
 
@@ -395,12 +403,12 @@ function Panel(host,p){
     g("im").src=src(q.photo);g("im").style.transform=`rotate(${q.rot||0}deg)`;V.reset();
     g("fb").hidden=true;g("es").hidden=true;g("nx").hidden=true;g("hint").hidden=true;g("hb").hidden=!q.hint;g("hb").disabled=false;
     const o=g("o");o.innerHTML="";o.className=q.mode==="list"?"pick":"opts";
-    q.options.forEach(id=>{const b=document.createElement("button");b.className="opt";b.dataset.id=id;b.innerHTML=C[id].n;b.onclick=()=>P.onAnswer(id);o.appendChild(b)});
+    q.options.forEach(id=>{const b=document.createElement("button");b.className="opt";b.dataset.id=id;b.innerHTML=SPN[SP[id]];b.onclick=()=>P.onAnswer(id);o.appendChild(b)});
     g("qt").textContent=q.options.length?(q.mode==="list"?"¿Qué es? Elegí de la lista":"¿Qué estás viendo?"):"Pregunta en curso (modo anfitrión)";
   };
   P.lock=()=>g("o").querySelectorAll(".opt").forEach(b=>b.disabled=true);
-  P.mark=(correct,chosen)=>g("o").querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.dataset.id===correct)b.classList.add("ok");else if(b.dataset.id===chosen)b.classList.add("bad")});
-  P.pick=id=>g("o").querySelectorAll(".opt").forEach(b=>b.classList.toggle("sel",b.dataset.id===id));
+  P.mark=(correct,chosen)=>g("o").querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(sameSp(b.dataset.id,correct))b.classList.add("ok");else if(sameSp(b.dataset.id,chosen))b.classList.add("bad")});
+  P.pick=id=>g("o").querySelectorAll(".opt").forEach(b=>b.classList.toggle("sel",sameSp(b.dataset.id,id)));
   P.askEstadio=list=>{const e=g("eo");e.innerHTML="";g("es").hidden=false;list.forEach(s=>{const b=document.createElement("button");b.className="opt";b.dataset.id=s;b.textContent=s;b.onclick=()=>P.onEstadio(s);e.appendChild(b)})};
   P.lockEst=()=>g("eo").querySelectorAll(".opt").forEach(b=>b.disabled=true);
   P.markEst=(correct,chosen)=>g("eo").querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.dataset.id===correct)b.classList.add("ok");else if(b.dataset.id===chosen)b.classList.add("bad")});
@@ -468,7 +476,7 @@ function pQ(){
 function pHud(){const s=PR;P1.hud([["Pregunta",(s.qi+1)+"/"+s.Q.length],["Puntos",s.score],["Racha",s.streak],["Mejor",+store("pbest2")||"–"]])}
 function pAnswer(id){
   const s=PR,q=s.cur,c=s.c;if(s.done||s.sp!==null)return;
-  const el=Date.now()-s.t0,ok=id===q.id;s.sp=id;
+  const el=Date.now()-s.t0,ok=sameSp(id,q.id);s.sp=id;
   const g=pts(ok,el,c.secs,s.streak,s.hint);
   bump(q.id,ok);
   if(ok){s.score+=g;s.streak++;s.ok++;s.g=g;SND.ok()}else{s.streak=0;s.miss.push(q.id);s.g=0;SND.bad()}
@@ -489,7 +497,7 @@ function pTimeout(){
 }
 function pFinish(chosen){
   const s=PR,q=s.cur,c=s.c;s.done=true;clearInterval(s.tm);P1.timer(null);
-  const ok=chosen===q.id;
+  const ok=sameSp(chosen,q.id);
   const eTxt=ok&&c.level!=="facil"?(s.estOk?" · forma correcta (+50)":" · forma incorrecta (era: "+STAGE[q.id]+")"):"";
   P1.fb(fbHTML(q.id,chosen,{ok,timeout:!!s.to,pts:s.g,eTxt,photo:q.p}));
   s.to=0;pHud();
@@ -704,7 +712,7 @@ async function hostReveal(){
   const qi=m.qi,c=PHN[qIdx()[qi]].id,upd={},ans=LV.ans[qi]||{};
   Object.entries(LV.players).forEach(([id,p])=>{
     const a=ans[id];let ok=false,pt=0,eOk=false,k=p.k||0;
-    if(a&&a.a){ok=a.a===c;const el=Math.max(0,(typeof a.ts==="number"?a.ts:m.t0)-m.t0);
+    if(a&&a.a){ok=sameSp(a.a,c);const el=Math.max(0,(typeof a.ts==="number"?a.ts:m.t0)-m.t0);
       if(ok){pt=pts(true,el,m.secs,k,false);k++;if(a.e&&a.e===STAGE[c]){pt+=50;eOk=true}}else k=0}
     else k=0;
     const b="players/"+id+"/";upd[b+"s"]=(p.s||0)+pt;upd[b+"k"]=k;upd[b+"lp"]=pt;upd[b+"lo"]=ok?(eOk?2:1):0;upd[b+"lq"]=qi;
